@@ -1,0 +1,31 @@
+<!-- 
+	속성 선택자
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* startsWith , a% c% */
+div[id^=a], div[id^=c]{
+	background-color:yellow;
+}
+/* endsWith %a %c */
+div[id$=a], div[id$=c]{
+	background-color:pink;
+}
+/* contains %b %k% */
+div[id*=a], div[id*=c]{
+	background-color:orange;
+}
+</style>
+</head>
+<body>
+	<div data-no="1" id="abc">Java</div>
+	<div data-no="2" id="bcd">Oracle</div>
+	<div data-no="3" id="cdf">JS</div>
+	<div data-no="4" id="dko">JSP</div>
+	<div data-no="5" id="aba">Spring</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- 
+	상태 선택자  ===== :
+	  = checked    input:checked ==> radio/checkbox
+	  = focus      input:focus
+	  = enabled    input:enabled
+	  = disable    input:disable
+	동위 선택자
+	문자 선택자
+	부정 선택자
+	가상 선택자
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+input[type=radio]:checked{
+	border:5px solid red;
+	accent-color:red;
+}
+input[type=text]:disabled{
+	background-color:green
+}
+input[type=text]:focus{
+	background-color:red;
+}
+input[type=text]:enabled{
+	background-color: yellow;
+}
+/*
+	enabled
+	disabled
+	readonly
+	------------- text
+	checked => checkbox,radio
+	------------- input
+	selected
+	------------- select
+*/
+</style>
+</head>
+<body>
+	<!-- checked -->
+	성별: <input type=radio name=sex checked>남자
+	     <input type=radio name=sex>여자
+	<p>
+	취미: <input type=checkbox checked>등산
+	     <input type=checkbox>독서
+	     <input type=checkbox>낚시
+	     <input type=checkbox checked>게임
+	     <input type=checkbox>개발
+	<p>
+	이름:<input type=text size=15><br>
+	주소:<input type=text size=25 disabled>
+	상세주소:<input type=text size=25>
+</body>
+</html>
