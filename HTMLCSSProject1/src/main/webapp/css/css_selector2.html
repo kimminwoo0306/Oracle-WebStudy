@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/*
+	id => 한개의 태그만 제어  =====================> 선택자 : 태그명#아이디명, #아이디명
+	                                                    ------------- -------
+	class => 여러개 태그를 묶어서 한번에 처리 ========> 선택자 : 태그명.클래스명, .클래스명
+	--------------------------------------------------- 태그의 구분자 (CSS, JavaScript), 중복이 가능한 값
+	태그명 => 같은 이름을 가진 태그가 많이 존재하기 때문에 제어하기 어렵다
+	---- select("태그명.클래스명") Jsoup:정적 (HTML이 출력이 있어야)
+*/
+img#img1{
+	border: 2px red solid;
+}
+img:last-child{
+	border: 2px green solid;
+}
+img:first-child{
+	border: 2px pink solid;
+}
+img.img2{
+	border: 2px black solid;
+}
+</style>
+</head>
+<body>
+	<h1> 캐릭터 사진 출력</h1>
+	<img src="../image/image1.jpg">
+	<img src="../image/image2.jpg" class="img2">
+	<img src="../image/image3.jpg" id="img1"> <!-- 테두리 설정 -->
+	<img src="../image/image4.jpg" class="img2">
+	<img src="../image/image5.jpg">
+</body>
+</html>
