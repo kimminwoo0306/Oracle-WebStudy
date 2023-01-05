@@ -1,9 +1,19 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
-    <head>
+    <head>  
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+*{
+font-family:'Noto Sans KR', sans-serif;
+}
+
+</style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Venue - Responsive Web Template</title>
+        <title>서울 99 여행 홈페이지</title>
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +26,7 @@
         <link rel="stylesheet" href="css/datepicker.css">
         <link rel="stylesheet" href="css/templatemo-style.css">
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+     <!--    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet"> -->
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <!--

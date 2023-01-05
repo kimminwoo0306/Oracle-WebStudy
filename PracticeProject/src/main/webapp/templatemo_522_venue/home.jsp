@@ -3,8 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style> @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
 </head>
 <body>
     <section class="banner" id="top">
@@ -13,10 +19,10 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="banner-caption">
                         <div class="line-dec"></div>
-                        <h2>Best Finder For You</h2>
-                        <span>Suspendisse eu lorem massa. Integer sit amet posuere tellus.</span>
+                        <h2>서울 구석구석을 여행하다!</h2>
+                        <span>서울 곳곳을 여행해보세요!</span>
                         <div class="blue-button">
-                            <a class="scrollTo" data-scrollTo="popular" href="#">Discover More</a>
+                            <a class="scrollTo" data-scrollTo="popular" href="#">찾아보기</a>
                         </div>
                     </div>
                     <div class="submit-form">
@@ -64,8 +70,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
-                        <span>Popular Places</span>
-                        <h2>Integer sapien odio</h2>
+                        <span>여행지</span>
+                        <h2>서울 갈만한 여행지 추천</h2>
                     </div>
                 </div> 
             </div> 
@@ -261,8 +267,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
-                        <span>Featured Places</span>
-                        <h2>Praesent nec dui sed urna</h2>
+                        <span>맛집</span>
+                        <h2>서울 인기 맛집 추천</h2>
                     </div>
                 </div> 
             </div> 
@@ -389,8 +395,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-heading">
-                        <span>Our Services</span>
-                        <h2>Best Template Site</h2>
+                        <span>서울 99여행의 서비스</span>
+                        <h2>서울 구석구석 여행 추천!</h2>
                     </div>
                 </div> 
             </div> 
@@ -400,7 +406,7 @@
                         <div class="icon">
                             <img src="img/service_icon_1.png" alt="">
                         </div>
-                        <h4>High Quality Design</h4>
+                        <h4>서울 갈만한 여행지 제공</h4>
                         <p>Etiam viverra nibh at lorem hendrerit porta non nec ligula. Donec hendrerit porttitor pretium. Suspendisse fermentum nec risus.</p>
                     </div>
                 </div>
@@ -409,7 +415,7 @@
                         <div class="icon">
                             <img src="img/service_icon_2.png" alt="">
                         </div>
-                        <h4>Fully Customizable</h4>
+                        <h4>서울 추천 맛집 제공</h4>
                         <p>Vivamus nec vehicula felis, sit amet convallis ex. Aenean dolor risus, rutrum at tincidunt eget, placerat ac mauris.</p>
                     </div>
                 </div>
@@ -418,7 +424,7 @@
                         <div class="icon">
                             <img src="img/service_icon_3.png" alt="">
                         </div>
-                        <h4>Best HTML CSS Layout</h4>
+                        <h4>홈페이지 이용</h4>
                         <p>Praesent nec dui sed urna pharetra dapibus at ac elit. Aenean hendrerit metus leo, quis viverra purus condimentum nec.</p>
                     </div>
                 </div>
@@ -554,25 +560,16 @@
 
 
     <section class="contact" id="contact">
-        <div id="map">
-        			<!-- How to change your own map point
-                           1. Go to Google Maps
-                           2. Click on your location point
-                           3. Click "Share" and choose "Embed map" tab
-                           4. Copy only URL and paste it within the src="" field below
-                    -->
 
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
         <div class="container">
             <div class="col-md-10 col-md-offset-1">
                 <div class="wrapper">
                   <div class="section-heading">
                       <span>Contact Us</span>
-                      <h2>Vivamus nec vehicula felis</h2>
+                      <h2>도움이 필요하신가요?</h2>
                   </div>
                   <!-- Modal button -->
-                  <button id="modBtn" class="modal-btn">Talk to us</button>
+                  <button id="modBtn" class="modal-btn">문의하기</button>
                 </div>  
                 <div id="modal" class="modal">
                   <!-- Modal Content -->

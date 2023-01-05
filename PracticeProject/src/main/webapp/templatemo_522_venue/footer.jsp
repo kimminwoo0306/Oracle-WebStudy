@@ -13,7 +13,7 @@
                 <div class="col-md-5">
                     <div class="about-veno">
                         <div class="logo">
-                            <img src="img/footer_logo.png" alt="Venue Logo">
+                            <img src="img/logo2.png">
                         </div>
                         <p>Mauris sit amet quam congue, pulvinar urna et, congue diam. Suspendisse eu lorem massa. Integer sit amet posuere tellus, id efficitur leo. In hac habitasse platea dictumst.</p>
                         <ul class="social-icons">
@@ -57,13 +57,13 @@
                 <div class="col-md-3">
                     <div class="contact-info">
                         <div class="footer-heading">
-                            <h4>Contact Information</h4>
+                            <h4>프로젝트_4</h4>
                         </div>
-                        <p>Praesent iaculis gravida elementum. Proin fermentum neque facilisis semper pharetra. Sed vestibulum vehicula tincidunt.</p>
+                        <p>4조의 서울 여행지 맛집 추천 홈페이지 제작 프로젝트</p>
                         <ul>
-                            <li><span>Phone:</span><a href="#">010-050-0550</a></li>
-                            <li><span>Email:</span><a href="#">hi@company.co</a></li>
-                            <li><span>Address:</span><a href="#">company.co</a></li>
+                            <li><span>Phone:</span><a href="#">010-1234-5678</a></li>
+                            <li><span>Email:</span><a href="#">4조 project</a></li>
+                            <li><span>Address:</span><a href="#">abc@naver.com</a></li>
                         </ul>
                     </div>
                 </div>

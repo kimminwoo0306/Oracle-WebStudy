@@ -95,7 +95,7 @@ public class FoodDAO {
 		{
 			getConnection();
 			String sql="INSERT INTO foodDetail_4(fno,fcno,image,name,score,addr,tel,type,price,time,"
-					  +"menu,parking,good,soso,bad) VALUES(fd_fno_seq_4.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					  +"menu,parking,good,soso,bad) VALUES(fd_fno_seq_4.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			ps=conn.prepareStatement(sql);
 			//?에 값을 채운다
 			ps.setInt(1, vo.getFcno());

@@ -6,7 +6,7 @@
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
-  font-family: sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -25,6 +25,11 @@ main,
 menu,
 nav,
 section,
+div.search-box{
+  width: 100%;
+  float: left;
+  margin:30px;
+}
 summary {
   display: block;
 }
@@ -900,7 +905,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
@@ -5008,6 +5013,23 @@ a.list-group-item-info.active:focus {
 .list-group-item-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
+}
+.input-box{
+    display: flex;
+    margin: 30px;
+    width: 400px;
+    padding: 6px;
+    border-radius: 15px;
+    border: 1px solid #e2e2e2;
+    
+}
+.input-box i{
+    flex: 1;
+}
+.input-box input{
+    flex: 7;
+    border: none;
+    outline: none;
 }
 a.list-group-item-warning {
   color: #8a6d3b;
