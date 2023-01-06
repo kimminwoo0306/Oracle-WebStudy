@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sawon>
+	<list>
+		<sabun>1</sabun>
+		<name>박지성</name>
+		<sex>남자</sex>
+	</list>
+	<list>
+		<sabun>2</sabun>
+		<name>손흥민</name>
+		<sex>남자</sex>
+	</list>
+	<list>
+		<sabun>3</sabun>
+		<name>기성용</name>
+		<sex>남자</sex>
+	</list>
+	
+</sawon>
