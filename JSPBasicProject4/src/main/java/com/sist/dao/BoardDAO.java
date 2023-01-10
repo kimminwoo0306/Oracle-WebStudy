@@ -40,6 +40,10 @@ public class BoardDAO {
    // 웹프로그램의 비중 ==> 50%(DB) => 자바(20%), HTML/CSS(20%), JavaScript(10%)
    public ArrayList<BoardVO> boardListData(int page)
    {
+	   /*
+	    * 	인라인 뷰 => Top-N
+	    * 	인덱스
+	    */
       ArrayList<BoardVO> list=new ArrayList<BoardVO>();
       try
       {
@@ -182,8 +186,8 @@ public class BoardDAO {
       }
    }
    // 수정 => 비번이 일치가 되는지 안되는지? => javaScript
-   // 수정 데이터 읽기
    // 1, Ajax, VueJS, ReactJS, TyemeLeaf
+   // 수정 데이터 읽기
    public BoardVO boardUpdateData(int no)
    {
 	   BoardVO vo=new BoardVO();
@@ -212,7 +216,92 @@ public class BoardDAO {
 	   }
 	   return vo;
    }
+   // 수정
+   public boolean boardUpdate(BoardVO vo) // 수정할 데이터 여러개 => VO, 한개, 두개 일반변수
+   {
+	   // boolean => 비밀번호가 맞는 경우 / 틀린 경우 => 경우수가 여러개면 int, String, 두개면 : boolean
+	   // 수정 => 비밀번호 (O) => 수정하고 상세보기로 이동, 비밀번호 (x) => 수정없이 이전화면으로 이동
+	   boolean bCheck=false;
+	   try
+	   {
+		   // 1. 연결
+		   getConnection();
+		   // 2. SQL => 두번 수행
+		   // 2-1 => 비밀번호 확인
+		   String sql="SELECT pwd FROM jsp_board "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   System.out.println("db_pwd="+db_pwd+",pwd="+vo.getPwd()); // 디버깅
+		   // 비밀번호를 체크
+		   if(db_pwd.equals(vo.getPwd()))
+		   {
+			   bCheck=true;
+			   //실제 수정
+			   sql="UPDATE jsp_board SET "
+				  +"name=?, subject=?, content=? " // regdate=SYSDATE
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, vo.getName());
+			   ps.setString(2, vo.getSubject());
+			   ps.setString(3, vo.getContent());
+			   ps.setInt(4, vo.getNo());
+			   
+			   // 실행 명령
+			   ps.executeUpdate();
+		   }
+		   
+	   }catch(Exception ex)
+	   {
+			   
+	   }
+	   finally
+	   {
+			   
+	   }
+	   return bCheck;
+   }
    // 삭제 => // 
+   public boolean boardDelete(int no, String pwd)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   getConnection();
+		   // 비밀번호 체크
+		   String sql="SELECT pwd FROM jsp_board "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   
+		   if(db_pwd.equals(pwd)) // 삭제
+		   {
+			   sql="DELETE FROM jsp_board "
+			      +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, no);
+			   ps.executeUpdate();
+			   
+			   bCheck=true;
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
    // 찾기 => <select> <checkbox> ==> 파일안에서 처리 
    
    
