@@ -1,7 +1,15 @@
 package com.sist.dao;
 
 public class MemberVO {
-	private String id,pwd,name,sex,msg;
+	private String id, pwd, name, sex, msg;
+	
+	public String getMsg() {
+		return msg;
+	}
+	
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
 	public String getId() {
 		return id;
@@ -34,13 +42,6 @@ public class MemberVO {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+	
 	
 }

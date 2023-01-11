@@ -3,6 +3,7 @@ package com.sist.dao;
 public class CategoryVO {
 	private int cno;
 	private String title, subject, poster;
+	
 	public int getCno() {
 		return cno;
 	}
@@ -27,5 +28,6 @@ public class CategoryVO {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
+	
 	
 }

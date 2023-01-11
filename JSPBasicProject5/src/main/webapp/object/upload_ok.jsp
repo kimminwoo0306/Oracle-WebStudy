@@ -2,15 +2,15 @@
     pageEncoding="UTF-8" import="java.io.*, com.oreilly.servlet.*"%>
 <%@ page import="com.oreilly.servlet.multipart.*" %>
 <%
-	try
-	{
-		// 한글 변환
+	try {
+		// 한글변환
 		request.setCharacterEncoding("UTF-8");
-		int size=1024*1024*100;
-		String enctype="UTF-8";
-		String path=application.getRealPath("/object");
-		MultipartRequest mr=new MultipartRequest(request, path, size, enctype, new DefaultFileRenamePolicy());
-		//new DefaultFileRenamePolicy() => 파일명 변경 (같은파일 들어오면 뒤에 1,2 써주는 기능)
-		response.sendRedirect("application.jsp?filename="+mr.getOriginalFileName("upload"));
-	}catch(Exception ex){}
+		int size = 1024 * 1024 * 100;
+		String enctype = "UTF-8";
+		String path = application.getRealPath("/object");
+		MultipartRequest mr =
+				new MultipartRequest(request, path, size, enctype, new DefaultFileRenamePolicy());
+		// new DefaultFileRenamePolicy() => 파일명 변경
+		response.sendRedirect("application.jsp?filename="+ mr.getOriginalFileName("upload"));
+	} catch(Exception ex) {}
 %>

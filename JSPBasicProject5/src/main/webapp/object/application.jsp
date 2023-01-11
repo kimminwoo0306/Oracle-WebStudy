@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String image=request.getParameter("filename");
-%>
+	String image = request.getParameter("filename");
+%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 </head>
 <body>
 	<center>
-		<img src="<%= image%>">
+	  <img src="<%=image%>">
 	</center>
 </body>
 </html>
