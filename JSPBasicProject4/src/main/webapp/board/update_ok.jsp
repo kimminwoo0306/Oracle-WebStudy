@@ -13,7 +13,6 @@
 </jsp:useBean>
 <%
 	boolean bCheck=dao.boardUpdate(vo);
-
 	if(bCheck==true)
 	{
 		// 정상수행

@@ -1,7 +1,8 @@
 package com.sist.dao;
 /*
- *  => 기본은 데이터베이스 컬럼명 전체를 처리 => 추가가 가능 / Entity : 추가
- *  NO      NOT NULL NUMBER         
+ *  => 기본은 데이터베이스 컬럼명 전체를 처리 => 추가가 가능 / Entity : 추가가 불가능
+ *     ------------------------------------------   ------------------- JPA
+	NO      NOT NULL NUMBER         
 	NAME    NOT NULL VARCHAR2(34)   
 	SUBJECT NOT NULL VARCHAR2(4000) 
 	CONTENT NOT NULL CLOB           
@@ -10,10 +11,12 @@ package com.sist.dao;
 	HIT              NUMBER   
  */
 import java.util.*;
+
 public class BoardVO {
 	private int no, hit;
-	private String name, subject, content, pwd, dbday;
+	private String name, subject, content, pwd, dbday; //dbday 날짜를 문자열로 바꾼거 오늘날짜면 NEW표시
 	private Date regdate;
+	
 	public int getNo() {
 		return no;
 	}
