@@ -2,8 +2,82 @@
     pageEncoding="UTF-8" import="com.sist.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <jsp:useBean id="model" class="com.sist.model.BoardModel"/>
+<%--
+	BoardModel model=new BoardModel()
+	출력 형식 : EL
+	${출력물} => 일반 변수가 아니다
+	           request.getAttribute("key") => request.setAttribute("key",value")
+	           ${requestScope.key}
+	           => 생략이 가능 => ${key}
+	           session. getAttribute("key") => session.setAttribute("key", "value")
+	           ${sessionScope.key}
+	     연산자
+	        산술연산자 => 문자열 결합 (+=)
+	                    null연산 => null은 0이다
+	                    ${null+10} => 10
+	                    ${"10"+10} => 20
+	                    ${"hello"+" el"} => 오류
+	                    ----------------
+	                    ${"hello"+=" el"} => hello el
+	                    정수/정수 = 실수
+	                    
+	                    / => div ${10/3}, ${10 div 3}
+	                    % => mod ${10%3}, ${10 mod 3}
+	        비교연산자 => 결과값 (true/false) => 문자열, 날짜도 동일하게 처리
+	                    == eq
+	                    != ne
+	                    <  lt
+	                    >  gt
+	                    <= le
+	                    >= ge
+	        논리연산자 => && and , || or, not()
+	        ------------------------------------ <c:if test="${비교연산,논리연산}">
+	        삼항연산자 => 조건 ? 값1 : 값2
+	        
+	        JSTL => JSP안에서 java코딩을 최소화 (자바제어문 => 태그형으로 제작)
+	        core =>
+	                <c:set> : 변수 설정
+	                     <c:set var="msg" value="Hello JSTL">
+	                     => request.setAttribute("msg","Hello JSTL");
+	                <c:out> : 화면 출력
+	                     <c:out value="Hello"> => out.println("Hello") => JQuery, VueJS.. 자바스크립트에서 주로 사용
+	                     
+	                <c:forEach> : for문
+	                     <c:forEach var="i" begin="1" end="10" step="1">
+	                        => for(int i=1; i<=10; i++)
+	                     <c:forEach var="vo" items="${list}"> => 가장 많이 사용 -> for-each(향상된  for문)
+	                     => for(VO vo:list)
+	                     <% %> <%= %> => 사용하지 않는다 (스프링) 
+	                <c:choose>
+	                     <c:choose>
+	                     	<c:when test=""></c:when>
+	                     	<c:when test=""></c:when>
+	                     	<c:when test=""></c:when>
+	                     	<c:when test=""></c:when>
+	                     	<c:when test=""></c:when>
+	                     	<c:otherwise></c:otherwise> else
+	                     </c:choose>
+	                  <c:if> == XML
+	                        <c:if test="">
+	                        	처리문장
+	                        </c:if>
+	                        DTD => 태그, 속성 정의 => XML의 단점 : 태그에 순서 (MyBatis, Spring) => XML기반
+	                        => XML 파싱 => JAXP, JAXB
+	                                      DOM/SAX
+	                        => JSON 파싱 => REST
+	                <c:forTokens> : StringTokenizer
+	        format => Oracle SQL문장에서 처리
+	            <fmt:formatDate>
+	            <fmt:formatNumber>
+	        fn => Model에서 처리 => 메소드 String
+	        ------------------ 보안의 문제가 있다 (거의 사용하지 않는다)
+	        sql => DAO, ORM
+	        xml => OXM
+	        ------------------
+	        
+	        <c:forEach>, <c:if>, <c:choose>, <c:redirect> => 대소문자 구분
+ --%>
 
 <%
     model.boardListData(request, response);
@@ -30,14 +104,14 @@
 <body>
    <div class="container">
      <div class="row">
-       <img src="qna.jpg" style="width: 200px; height=50px;">
+       <img src="qna.jpg" style="width: 800px; height:150px" class="img-rounded">
      </div>
      <div style="height: 5px"></div>
      <div class="row">
        <table class="table">
          <tr>
            <td>
-             <a href="#" class="btn btn-sm btn-danger">새글</a>
+             <a href="insert.jsp" class="btn btn-sm btn-danger">새글</a>
            </td>
          </tr>
        </table>
@@ -53,13 +127,18 @@
            <tr class="warning">
              <td width="10%" class="text-center">${vo.no }</td>
              <td width="45%">
-             <c:if test="${vo.group_tab >0}">>
+             <c:if test="${vo.group_tab >0}">
                <c:forEach var="i" begin="0" end="${vo.group_tab }">
-                 &nbsp;&nbsp;
+               &nbsp;&nbsp;
                </c:forEach>
                <img src="re_icon.png">
              </c:if>
-             ${vo.subject }
+             <c:if test="${vo.subject==msg }">
+             	<span style="color:gray">${vo.subject }</span>
+             	</c:if>
+             	<c:if test="${vo.subject!=msg }">
+             	<a href="detail.jsp?no=${vo.no}">${vo.subject }
+             </c:if>
              &nbsp;
              <c:if test="${today==vo.dbday }">
                <sup><img src="new.gif"></sup>
