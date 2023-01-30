@@ -34,6 +34,7 @@ public class GoodsModel {
       request.setAttribute("startPage", startPage);
       request.setAttribute("endPage", endPage);
       request.setAttribute("main_jsp", "../goods/goods_all.jsp"); // main.jsp에서 include되는 파일 지정
+      CommonsModel.footerData(request);
       return "../main/main.jsp";
    }
 	   @RequestMapping("goods/goods_best.do")
@@ -58,6 +59,7 @@ public class GoodsModel {
 	      request.setAttribute("startPage", startPage);
 	      request.setAttribute("endPage", endPage);
 	      request.setAttribute("main_jsp", "../goods/goods_best.jsp"); // main.jsp에서 include되는 파일 지정
+	      CommonsModel.footerData(request);
 	      return "../main/main.jsp";
 	   }
 	   @RequestMapping("goods/goods_new.do")
@@ -82,6 +84,7 @@ public class GoodsModel {
 		      request.setAttribute("startPage", startPage);
 		      request.setAttribute("endPage", endPage);
 		      request.setAttribute("main_jsp", "../goods/goods_new.jsp"); // main.jsp에서 include되는 파일 지정
+		      CommonsModel.footerData(request);
 		      return "../main/main.jsp";
 		   } 
 	   @RequestMapping("goods/goods_sp.do")
@@ -106,6 +109,7 @@ public class GoodsModel {
 		      request.setAttribute("startPage", startPage);
 		      request.setAttribute("endPage", endPage);
 		      request.setAttribute("main_jsp", "../goods/goods_sp.jsp"); // main.jsp에서 include되는 파일 지정
+		      CommonsModel.footerData(request);
 		      return "../main/main.jsp";
 		   } 
 }

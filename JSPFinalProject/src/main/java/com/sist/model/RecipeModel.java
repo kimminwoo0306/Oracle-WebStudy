@@ -42,6 +42,7 @@ public class RecipeModel {
 		request.setAttribute("count", count);
 		// request에 담아서 jsp로 전송
 		request.setAttribute("main_jsp", "../recipe/list.jsp");
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
 }

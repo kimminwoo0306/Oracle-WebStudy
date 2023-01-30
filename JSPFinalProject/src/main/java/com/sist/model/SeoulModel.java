@@ -49,6 +49,7 @@ public class SeoulModel {
 		request.setAttribute("title", title[Integer.parseInt(type)]);
 		
 		request.setAttribute("main_jsp", "../seoul/seoul_list.jsp");
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
 }

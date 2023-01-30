@@ -59,6 +59,7 @@ public class FreeBoardModel {
 		/////////////////////////////////////////////// JSP출력을 위해 전송
 		
 		request.setAttribute("main_jsp", "../freeboard/list.jsp");
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";  // request => main.jsp.forward(request)
 	}
 	@RequestMapping("freeboard/insert.do") // 조건문 (URL -> freeboard/insert.do라면)
@@ -66,6 +67,7 @@ public class FreeBoardModel {
 	{
 		// 중간에 들어가는 파일을 지정
 		request.setAttribute("main_jsp", "../freeboard/insert.jsp"); // 화면 출력
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
 	@RequestMapping("freeboard_insert_ok.do")
@@ -107,6 +109,7 @@ public class FreeBoardModel {
 		FreeBoardVO vo=dao.boardDetailData(Integer.parseInt(no));
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../freeboard/detail.jsp");
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
 }
