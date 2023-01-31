@@ -2,6 +2,7 @@ package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 /*
@@ -110,8 +111,144 @@ public class FreeBoardModel {
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../freeboard/detail.jsp");
 		CommonsModel.footerData(request);
+		//댓글 보내기
+		List<BoardReplyVO> list=dao.replyListData(Integer.parseInt(no));
+		request.setAttribute("list", list);
+		request.setAttribute("count", list.size());
 		return "../main/main.jsp";
 	}
+	@RequestMapping("freeboard/update.do") // ../freeboard/update.do?no=${vo.no}
+	public String freeboard_update(HttpServletRequest request, HttpServletResponse response)
+	{
+		String no=request.getParameter("no");
+		FreeBoardDAO dao=new FreeBoardDAO();
+		FreeBoardVO vo=dao.boardUpdateData(Integer.parseInt(no));
+		request.setAttribute("vo", vo);
+		request.setAttribute("main_jsp", "../freeboard/update.jsp");
+		CommonsModel.footerData(request);
+		return "../main/main.jsp";
+	}
+	@RequestMapping("freeboard/update_ok.do")
+	public String freeboard_update_ok(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String no=request.getParameter("no");
+		String name=request.getParameter("name");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		String pwd=request.getParameter("pwd");
+		
+		FreeBoardVO vo=new FreeBoardVO();
+		vo.setNo(Integer.parseInt(no));
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		// 데이터베이스 연동
+		FreeBoardDAO dao=new FreeBoardDAO();
+		boolean bCheck=dao.boardUpdate(vo);
+		if(bCheck==true)
+		{
+			request.setAttribute("res", "yes");
+		}
+		else
+		{
+			request.setAttribute("res", "no");
+		}
+		return "../freeboard/update_ok.jsp";
+	}
+	@RequestMapping("freeboard/delete.do")
+	public String freeboard_delete(HttpServletRequest request, HttpServletResponse response)
+	{
+		String no=request.getParameter("no");
+		String pwd=request.getParameter("pwd");
+		FreeBoardDAO dao=new FreeBoardDAO();
+		boolean bCheck=dao.boardDelete(Integer.parseInt(no),pwd);
+		if(bCheck==true)
+		{
+			request.setAttribute("res", "yes");
+		}
+		else
+		{
+			request.setAttribute("res", "no");
+		}
+		return "../freeboard/update_ok.jsp"; // delete가 맞지만 ${res}하나 쓸거라서 잇는 파일에 적용
+	}
+	@RequestMapping("freeboard/reply_insert.do")
+	public String freeboard_reply_insert(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String msg=request.getParameter("msg");
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name");
+		BoardReplyVO vo=new BoardReplyVO();
+		vo.setBno(Integer.parseInt(bno));
+		vo.setMsg(msg);
+		vo.setId(id);
+		vo.setName(name);
+		FreeBoardDAO dao=new FreeBoardDAO();
+		dao.replyInsert(vo);
+		return "redirect:detail.do?no="+bno;
+	}
+	@RequestMapping("freeboard/reply_update.do")
+	public String reply_update(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String rno=request.getParameter("rno");
+		String msg=request.getParameter("msg");
+		//DAO 연결
+		FreeBoardDAO dao=new FreeBoardDAO();
+		dao.replyUpdate(Integer.parseInt(rno), msg);
+		return "redirect:detail.do?no="+bno;
+	}
+	@RequestMapping("freeboard/reply_reply_insert.do")
+	public String reply_reply_insert(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String pno=request.getParameter("pno"); // 댓글번호 => 상위번호
+		String msg=request.getParameter("msg");
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name");
+		
+		BoardReplyVO vo=new BoardReplyVO();
+		vo.setBno(Integer.parseInt(bno));
+		vo.setId(id);
+		vo.setName(name);
+		vo.setMsg(msg);
+		FreeBoardDAO dao=new FreeBoardDAO();
+		// 답변 => 메소드 호출
+		dao.replyReplyInsert(Integer.parseInt(pno), vo);
+		return "redirect:detail.do?no="+bno;
+	}
+	@RequestMapping("freeboard/reply_delete.do")
+	public String reply_delete(HttpServletRequest request, HttpServletResponse response)
+	{
+		String rno=request.getParameter("rno");
+		String bno=request.getParameter("bno");
+		FreeBoardDAO dao=new FreeBoardDAO();
+		// 삭제처리
+		dao.replyDelete(Integer.parseInt(rno));
+		return "redirect:detail.do?no="+bno;
+	}
+	
 }
 
 
