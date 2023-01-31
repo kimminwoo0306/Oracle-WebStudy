@@ -11,6 +11,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -55,7 +56,7 @@ public class BoardModel {
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
-			String path="c:\\download"; // 업로드된 파일 저장 위치
+			String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\SeoulPractice\\upload"; // 업로드된 파일 저장 위치
 			int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
 			String enctype="UTF-8"; // 한글 파일명
 			MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
@@ -113,21 +114,14 @@ public class BoardModel {
 	public String board_delete(HttpServletRequest request, HttpServletResponse response)
 	{
 		String bno=request.getParameter("bno");
-		request.setAttribute("main_jsp", "../board/delete.jsp"); // 화면 출력
-		return "../main/main.jsp";
-	}
-	@RequestMapping("board/delete_ok.do")
-	public String board_delete_ok(HttpServletRequest request, HttpServletResponse response)
-	{
-		String bno=request.getParameter("bno");
 		String pwd=request.getParameter("pwd");
-		
 		BoardDAO dao=new BoardDAO();
 		BoardVO vo=dao.boardInfoData(Integer.parseInt(bno));
-		boolean bCheck=dao.boardDelete(Integer.parseInt(bno), pwd);
+		boolean bCheck=dao.boardDelete(Integer.parseInt(bno),pwd);
+		
 		if(bCheck==true)
 		{
-			// 파일 삭제
+			request.setAttribute("msg", "yes");
 			if(vo.getFilesize()>0) // 파일 존재하면 파일 삭제
 			{
 				try
@@ -141,8 +135,28 @@ public class BoardModel {
 				
 			}
 		}
-		return "redirect:list.do";
+		else
+		{
+			request.setAttribute("msg", "no");
+		}
+		return "../board/update_ok.jsp"; // delete파일 대신 ${msg}잇는 파일에 적용
 	}
+
+	/*
+	 * @RequestMapping("board/delete_ok.do") public String
+	 * board_delete_ok(HttpServletRequest request, HttpServletResponse response) {
+	 * String bno=request.getParameter("bno"); String
+	 * pwd=request.getParameter("pwd");
+	 * 
+	 * BoardDAO dao=new BoardDAO(); BoardVO
+	 * vo=dao.boardInfoData(Integer.parseInt(bno)); boolean
+	 * bCheck=dao.boardDelete(Integer.parseInt(bno), pwd); if(bCheck==true) { // 파일
+	 * 삭제 if(vo.getFilesize()>0) // 파일 존재하면 파일 삭제 { try { File file=new
+	 * File("c:\\download\\"+vo.getFilename()); file.delete(); }catch(Exception ex)
+	 * {} } else {
+	 * 
+	 * } } return "redirect:list.do"; }
+	 */
 	@RequestMapping("board/update.do")
 	public String board_update(HttpServletRequest request, HttpServletResponse response)
 	   {
@@ -161,29 +175,48 @@ public class BoardModel {
 		   {
 			   // 한글 변환
 			   request.setCharacterEncoding("UTF-8");
-			   String name=request.getParameter("name");
-			   String title=request.getParameter("title");
-			   String content=request.getParameter("content");
-			   String pwd=request.getParameter("pwd");
-			   String bno=request.getParameter("bno");
-			   BoardVO vo=new BoardVO();
-			   vo.setName(name);
-			   vo.setTitle(title);
-			   vo.setContent(content);
-			   vo.setPwd(pwd);
-			   vo.setBno(Integer.parseInt(bno));
-			   BoardDAO dao=new BoardDAO();
-			   boolean bCheck=dao.boardUpdate(vo);
-			   String msg="";
-			   if(bCheck==true)
-				   msg="yes";
-			   else
-				   msg="no";
-			   request.setAttribute("msg", msg);
-			   request.setAttribute("no", msg);
 		   }catch(Exception ex) {}
+		   String name=request.getParameter("name");
+		   String title=request.getParameter("title");
+		   String content=request.getParameter("content");
+		   String pwd=request.getParameter("pwd");
+		   String bno=request.getParameter("bno");
+		   String moddate=request.getParameter(bno);
+		   BoardVO vo=new BoardVO();
+		   vo.setName(name);
+		   vo.setTitle(title);
+		   vo.setContent(content);
+		   vo.setPwd(pwd);
+		   vo.setBno(Integer.parseInt(bno));
+		   BoardDAO dao=new BoardDAO();
+		   boolean bCheck=dao.boardUpdate(vo);
+		   String msg="";
+		   if(bCheck==true)
+			   request.setAttribute("msg", "yes");
+		   else
+			   request.setAttribute("msg", "no");
 
-		request.setAttribute("main_jsp", "../board/update_ok.jsp"); // 화면 출력
-		return "../main/main.jsp";
+		return "../board/update_ok.jsp";
 	   }
+	@RequestMapping("board/reply_insert.do")
+	public String freeboard_reply_insert(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String msg=request.getParameter("msg");
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name");
+		BoardReplyVO vo=new BoardReplyVO();
+		vo.setBno(Integer.parseInt(bno));
+		vo.setMsg(msg);
+		vo.setId(id);
+		vo.setName(name);
+		BoardDAO dao=new BoardDAO();
+		dao.replyInsert(vo);
+		return "redirect:detail.do?bno="+bno;
+	}
 }

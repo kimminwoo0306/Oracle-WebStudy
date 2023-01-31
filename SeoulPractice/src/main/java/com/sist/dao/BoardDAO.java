@@ -3,8 +3,6 @@ package com.sist.dao;
 import java.util.*;
 import com.sist.vo.*;
 
-import com.sist.vo.BoardVO;
-
 import java.sql.*;
 
 public class BoardDAO {
@@ -172,7 +170,7 @@ public class BoardDAO {
 		boolean bCheck = false;
 		try {
 			// 1. 연결
-			CreateConnection.getConnection();
+			conn=CreateConnection.getConnection();
 			// 2. SQL => 두번 수행
 			// 2-1 => 비밀번호 확인
 			String sql = "SELECT pwd FROM gg_board_4 "
@@ -189,7 +187,7 @@ public class BoardDAO {
 				bCheck = true;
 				// 실제 수정
 				sql = "UPDATE gg_board_4 SET "
-					+ "name=?, title=?, content=? moddate=SYSDATE " //regdate=SYSDATE 수정날짜 
+					+ "name=?, title=?, content=?, moddate=SYSDATE " //regdate=SYSDATE 수정날짜 
 					+ "WHERE bno=?";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, vo.getName());
@@ -234,7 +232,7 @@ public class BoardDAO {
 		}
 		return vo;
 	}
-	public boolean boardDelete(int no, String pwd) {
+	public boolean boardDelete(int bno, String pwd) {
 		boolean bCheck = false;
 		try {
 			conn=CreateConnection.getConnection();
@@ -242,7 +240,7 @@ public class BoardDAO {
 			String sql = "SELECT pwd FROM gg_board_4 "
 					+ "WHERE bno=?";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, no);
+			ps.setInt(1, bno);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			String db_pwd = rs.getString(1);
@@ -253,7 +251,7 @@ public class BoardDAO {
 				sql = "DELETE FROM gg_board_4 "
 					+ "WHERE bno=?";
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, no);
+				ps.setInt(1, bno);
 				ps.executeUpdate();
 				
 				bCheck=true;
@@ -265,5 +263,27 @@ public class BoardDAO {
 		}
 		return bCheck;
 	}
+	public void replyInsert(BoardReplyVO vo)
+	   {
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   String sql="INSERT INTO gg_reply_4(rno,bno,id,name,msg,group_id) "
+					     +"VALUES(gr_rno_seq.nextval,?,?,?,?,(SELECT NVL(MAX(group_id)+1,1) FROM gg_reply_4))";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, vo.getBno());
+			   ps.setString(2, vo.getId());
+			   ps.setString(3, vo.getName());
+			   ps.setString(4, vo.getMsg());
+			   ps.executeUpdate();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   CreateConnection.disConnection(conn, ps);
+		   }
+	   }
 	// 찾기  => <select> <checkbox> ==> 파일안에서 처리
 }
