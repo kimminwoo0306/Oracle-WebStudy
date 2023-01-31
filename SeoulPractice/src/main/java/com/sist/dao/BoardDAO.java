@@ -286,4 +286,195 @@ public class BoardDAO {
 		   }
 	   }
 	// 찾기  => <select> <checkbox> ==> 파일안에서 처리
+	
+	// 이제 해야될 부분
+	// 댓글 읽기
+	   public List<BoardReplyVO> replyListData(int bno)
+	   {
+		   List<BoardReplyVO> list=new ArrayList<BoardReplyVO>();
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   String sql="SELECT rno,bno,id,name,msg,group_tab,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
+					     +"FROM project_reply "
+					     +"WHERE bno=? "
+			             +"ORDER BY group_id DESC, group_step ASC";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, bno);
+			   ResultSet rs=ps.executeQuery();
+			   while(rs.next())
+			   {
+				   BoardReplyVO vo=new BoardReplyVO();
+				   vo.setRno(rs.getInt(1));
+				   vo.setBno(rs.getInt(2));
+				   vo.setId(rs.getString(3));
+				   vo.setName(rs.getString(4));
+				   vo.setMsg(rs.getString(5));
+				   vo.setGroup_tab(rs.getInt(6));
+				   vo.setDbday(rs.getString(7));
+				   list.add(vo);
+			   }
+			   rs.close();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   CreateConnection.disConnection(conn, ps);
+		   }
+		   return list;
+	   }
+	   public void replyUpdate(int rno, String msg)
+	   {
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   String sql="UPDATE project_reply SET "
+					     +"msg=? "
+					     +"WHERE rno=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, msg);
+			   ps.setInt(2, rno);
+			   ps.executeUpdate();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+		   }
+		   finally
+		   {
+			   CreateConnection.disConnection(conn, ps);
+		   }
+	   }
+	   // 트랜잭션 프로그램 (일괄처리) => SQL문장 여러개를 동시에 수행 ==> 스프링 (chapter)
+	   public void replyReplyInsert(int root, BoardReplyVO vo)
+	   {
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   conn.setAutoCommit(false);
+			   // 1. root가 가지고 있는 group_id, group_step, group_tab을 가지고 온다
+			   String sql="SELECT group_id, group_step, group_tab "
+					     +"FROM project_reply "
+					     +"WHERE rno=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, root);
+			   ResultSet rs=ps.executeQuery();
+			   rs.next();
+			   int gi=rs.getInt(1);
+			   int gs=rs.getInt(2);
+			   int gt=rs.getInt(3);
+			   rs.close();
+			   // 2 group_step 증가
+			   sql="UPDATE project_reply SET "
+				  +"group_step=group_step+1 "
+				  +"WHERE group_id=? AND group_step>?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, gi);
+			   ps.setInt(2, gs);
+			   ps.executeUpdate();
+			   // 3. INSERT commit() ========> rollback은 수행하지 않는다
+			   sql="INSERT INTO project_reply(rno,bno,id,name,msg,group_id,group_step,group_tab,root) "
+			 	  +"VALUES(pr_rno_seq.nextval,?,?,?,?,?,?,?,?)";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, vo.getBno());
+			   ps.setString(2, vo.getId());
+			   ps.setString(3, vo.getName());
+			   ps.setString(4, vo.getMsg());
+			   ps.setInt(5, gi);
+			   ps.setInt(6, gs+1);
+			   ps.setInt(7, gt+1);
+			   ps.setInt(8, root);
+			   ps.executeUpdate();
+			   // 4. UPDATE (depth증가) commit()
+			   sql="UPDATE project_reply SET "
+				  +"depth=depth+1 "
+				  +"WHERE rno=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, root);
+			   ps.executeUpdate();
+			   conn.commit();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+			   try
+			   {
+				   conn.rollback();
+			   }catch(Exception e) {}
+		   }
+		   finally
+		   {
+			   try
+			   {
+				   conn.setAutoCommit(true);
+			   }catch(Exception e) {}
+			   CreateConnection.disConnection(conn, ps);
+		   }
+	   }
+	   public void replyDelete(int rno)
+	   {
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   conn.setAutoCommit(false);
+			   // 1. root,depth
+			   String sql="SELECT root,depth FROM project_reply "
+					     +"WHERE rno=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, rno);
+			   ResultSet rs=ps.executeQuery();
+			   rs.next();
+			   int root=rs.getInt(1);
+			   int depth=rs.getInt(2);
+			   rs.close();
+			   // 2. depth=0,(DELETE) depth!=0 (UPDATE)
+			   if(depth==0)
+			   {
+				   // delete
+				   
+				   sql="DELETE FROM project_reply "
+					  +"WHERE rno=?";
+				   ps=conn.prepareStatement(sql);
+				   ps.setInt(1, rno);
+				   ps.executeUpdate();
+				// depth가 감소 => root
+				   sql="UPDATE project_reply SET "
+					  +"depth=depth-1 "
+					  +"WHERE rno=?";
+				   ps=conn.prepareStatement(sql);
+				   ps.setInt(1, root);
+				   ps.executeUpdate();
+			   }
+			   else
+			   {
+				   String msg="관리자가 삭제한 댓글입입니다.";
+				   // update
+				   sql="UPDATE project_reply SET "
+					  +"msg=? "
+					  +"WHERE rno=?";
+				   ps=conn.prepareStatement(sql);
+				   ps.setString(1, msg);
+				   ps.setInt(2, rno);
+				   ps.executeUpdate();
+				   
+			   }
+			   // 3. depth 감소
+			   conn.commit();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();
+			   try
+			   {
+				   conn.rollback();
+			   }catch(Exception e) {}
+		   }
+		   finally
+		   {
+			   try
+			   {
+				   conn.setAutoCommit(true);
+				   CreateConnection.disConnection(conn, ps);
+			   }catch(Exception ex) {}
+		   }
+	   }
 }
