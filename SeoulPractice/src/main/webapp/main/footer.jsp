@@ -5,13 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
-.container a{
-            /* a태그 디폴트값 */
-   color:black;
-   text-decoration:none;
-}
 footer{
 	background-color:gray;
 	color:white;
@@ -23,107 +17,108 @@ a{
 h5{
 	color:white;
 }
-      .background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        z-index: 1000;
 
-        /* 숨기기 */
-        z-index: -1;
-        opacity: 0;
-      }
+/* 팝업 : 메인배너이미지출처 */
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	/*background-color: rgba(0, 0, 0, 0.4);*/
+	z-index: 500;
+	
+	/* 숨기기 */
+	z-index: -1;
+	opacity: 0;
+}
 
-      .show {
-        opacity: 1;
-        z-index: 1000;
-        transition: all 0.5s;
-      }
+.show {
+	opacity: 1;
+	z-index: 500;
+	transition: all 0.5s;
+}
       
-      #show_btn{
+#show_btn{
               
-        /*버튼 디폴트값 지우기*/
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance:none;
-        
-        border : 2px solid white;
-        border-radius : 4px;
-        padding : 10px 20px;
-        background-color:transparent;
-        color: white;
-      }
+	/*버튼 디폴트값 지우기*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance:none;
+	        
+	border : 2px solid white;
+	border-radius : 4px;
+	padding : 10px 20px;
+	background-color:transparent;
+	color: white;
+}
       
-      #show_btn:hover{
-        border : 2px solid #004fff;
-        color : #004fff;
-      }
+#show_btn:hover{
+	border : 2px solid #004fff;
+	color : #004fff;
+}
       
-      #close_btn{
-        /*버튼 디폴트값 지우기*/
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance:none;
-        
-        width:70px;
-        height:40px;
-        border-radius:4px;
-        border : 0;
-        background-color : #e0e0e0;
-        color:black;
-        float:right;
-      }
+#close_btn{
+	/*버튼 디폴트값 지우기*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance:none;
+	        
+	width:70px;
+	height:40px;
+	border-radius:4px;
+	border : 0;
+	background-color : #e0e0e0;
+	color:black;
+	float:right;
+}
+.window {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
 
-      .window {
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
+.photoby_popup {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #ffffff;
+	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	/* 임시 지정 */
+	width: 450px;
+	height: 420px;
+	
+	/* 초기에 약간 아래에 배치 */
+	transform: translate(-50%, -40%);
+	padding : 50px;
+}
 
-      .photoby_popup {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #ffffff;
-        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-		border-radius: 10px;
-        /* 임시 지정 */
-        width: 450px;
-        height: 420px;
-
-        /* 초기에 약간 아래에 배치 */
-        transform: translate(-50%, -40%);
-        
-        padding : 50px;
-      }
-
-      .show .photoby_popup {
-        transform: translate(-50%, -50%);
-        transition: all 0.5s;
-      }
+.show .photoby_popup {
+	transform: translate(-50%, -50%);
+	transition: all 0.5s;
+}
       
-      .photoby_popup h4{
-      margin:0px;
-     padding-bottom : 40px;
-      text-align:center;
+.photoby_popup h4{
+	margin:0px;
+	padding-bottom : 40px;
+	text-align:center;
+}
       
-      }
-      
-      #photoby_content{
-      padding-bottom : 20px;
-      }
+#photoby_content{
+	padding-bottom : 20px;
+}
    
-     #photoby_content p{
-     color:black;
-     }
+#photoby_content p{
+	color:black;
+}
      
-     #photoby_content a{
-     color:#004fff;
-     }  
+#photoby_content a{
+	color:#004fff;
+}  
+
+/* ------------------- */
 
 </style>
 </head>
@@ -181,7 +176,7 @@ h5{
                             <button id="show_btn">메인배너이미지 출처</button>
                         </p>
                         
-			    <div class="background">
+			    <div id="02" class="background">
 			      <div class="window">
 			        <div class="photoby_popup">
 			          <h4 style="color:black;">메인배너이미지 출처</h4>

@@ -232,7 +232,7 @@ public class BoardDAO {
 		}
 		return vo;
 	}
-	public boolean boardDelete(int bno, String pwd) {
+	public boolean boardDelete(int no, String pwd) {
 		boolean bCheck = false;
 		try {
 			conn=CreateConnection.getConnection();
@@ -240,7 +240,7 @@ public class BoardDAO {
 			String sql = "SELECT pwd FROM gg_board_4 "
 					+ "WHERE bno=?";
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, bno);
+			ps.setInt(1, no);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			String db_pwd = rs.getString(1);
@@ -251,7 +251,7 @@ public class BoardDAO {
 				sql = "DELETE FROM gg_board_4 "
 					+ "WHERE bno=?";
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, bno);
+				ps.setInt(1, no);
 				ps.executeUpdate();
 				
 				bCheck=true;
@@ -263,13 +263,15 @@ public class BoardDAO {
 		}
 		return bCheck;
 	}
+	// 찾기  => <select> <checkbox> ==> 파일안에서 처리
+	// 댓글
 	public void replyInsert(BoardReplyVO vo)
 	   {
 		   try
 		   {
 			   conn=CreateConnection.getConnection();
 			   String sql="INSERT INTO gg_reply_4(rno,bno,id,name,msg,group_id) "
-					     +"VALUES(gr_rno_seq.nextval,?,?,?,?,(SELECT NVL(MAX(group_id)+1,1) FROM gg_reply_4))";
+					     +"VALUES(gr_rno_seq_4.nextval,?,?,?,?,(SELECT NVL(MAX(group_id)+1,1) FROM gg_reply_4))";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, vo.getBno());
 			   ps.setString(2, vo.getId());
@@ -285,18 +287,14 @@ public class BoardDAO {
 			   CreateConnection.disConnection(conn, ps);
 		   }
 	   }
-	// 찾기  => <select> <checkbox> ==> 파일안에서 처리
-	
-	// 이제 해야될 부분
-	// 댓글 읽기
-	   public List<BoardReplyVO> replyListData(int bno)
+	public List<BoardReplyVO> replyListData(int bno)
 	   {
 		   List<BoardReplyVO> list=new ArrayList<BoardReplyVO>();
 		   try
 		   {
 			   conn=CreateConnection.getConnection();
 			   String sql="SELECT rno,bno,id,name,msg,group_tab,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
-					     +"FROM project_reply "
+					     +"FROM gg_reply_4 "
 					     +"WHERE bno=? "
 			             +"ORDER BY group_id DESC, group_step ASC";
 			   ps=conn.prepareStatement(sql);
@@ -325,12 +323,12 @@ public class BoardDAO {
 		   }
 		   return list;
 	   }
-	   public void replyUpdate(int rno, String msg)
+	public void replyUpdate(int rno, String msg)
 	   {
 		   try
 		   {
 			   conn=CreateConnection.getConnection();
-			   String sql="UPDATE project_reply SET "
+			   String sql="UPDATE gg_reply_4 SET "
 					     +"msg=? "
 					     +"WHERE rno=?";
 			   ps=conn.prepareStatement(sql);
@@ -346,8 +344,7 @@ public class BoardDAO {
 			   CreateConnection.disConnection(conn, ps);
 		   }
 	   }
-	   // 트랜잭션 프로그램 (일괄처리) => SQL문장 여러개를 동시에 수행 ==> 스프링 (chapter)
-	   public void replyReplyInsert(int root, BoardReplyVO vo)
+	public void replyReplyInsert(int root, BoardReplyVO vo)
 	   {
 		   try
 		   {
@@ -355,7 +352,7 @@ public class BoardDAO {
 			   conn.setAutoCommit(false);
 			   // 1. root가 가지고 있는 group_id, group_step, group_tab을 가지고 온다
 			   String sql="SELECT group_id, group_step, group_tab "
-					     +"FROM project_reply "
+					     +"FROM gg_reply_4 "
 					     +"WHERE rno=?";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, root);
@@ -366,7 +363,7 @@ public class BoardDAO {
 			   int gt=rs.getInt(3);
 			   rs.close();
 			   // 2 group_step 증가
-			   sql="UPDATE project_reply SET "
+			   sql="UPDATE gg_reply_4 SET "
 				  +"group_step=group_step+1 "
 				  +"WHERE group_id=? AND group_step>?";
 			   ps=conn.prepareStatement(sql);
@@ -374,8 +371,8 @@ public class BoardDAO {
 			   ps.setInt(2, gs);
 			   ps.executeUpdate();
 			   // 3. INSERT commit() ========> rollback은 수행하지 않는다
-			   sql="INSERT INTO project_reply(rno,bno,id,name,msg,group_id,group_step,group_tab,root) "
-			 	  +"VALUES(pr_rno_seq.nextval,?,?,?,?,?,?,?,?)";
+			   sql="INSERT INTO gg_reply_4(rno,bno,id,name,msg,group_id,group_step,group_tab,root) "
+			 	  +"VALUES(gr_rno_seq_4.nextval,?,?,?,?,?,?,?,?)";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, vo.getBno());
 			   ps.setString(2, vo.getId());
@@ -387,7 +384,7 @@ public class BoardDAO {
 			   ps.setInt(8, root);
 			   ps.executeUpdate();
 			   // 4. UPDATE (depth증가) commit()
-			   sql="UPDATE project_reply SET "
+			   sql="UPDATE gg_reply_4 SET "
 				  +"depth=depth+1 "
 				  +"WHERE rno=?";
 			   ps=conn.prepareStatement(sql);
@@ -418,7 +415,7 @@ public class BoardDAO {
 			   conn=CreateConnection.getConnection();
 			   conn.setAutoCommit(false);
 			   // 1. root,depth
-			   String sql="SELECT root,depth FROM project_reply "
+			   String sql="SELECT root,depth FROM gg_reply_4 "
 					     +"WHERE rno=?";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, rno);
@@ -432,13 +429,13 @@ public class BoardDAO {
 			   {
 				   // delete
 				   
-				   sql="DELETE FROM project_reply "
+				   sql="DELETE FROM gg_reply_4 "
 					  +"WHERE rno=?";
 				   ps=conn.prepareStatement(sql);
 				   ps.setInt(1, rno);
 				   ps.executeUpdate();
 				// depth가 감소 => root
-				   sql="UPDATE project_reply SET "
+				   sql="UPDATE gg_reply_4 SET "
 					  +"depth=depth-1 "
 					  +"WHERE rno=?";
 				   ps=conn.prepareStatement(sql);
@@ -447,9 +444,9 @@ public class BoardDAO {
 			   }
 			   else
 			   {
-				   String msg="관리자가 삭제한 댓글입입니다.";
+				   String msg="관리자가 삭제한 댓글입니다.";
 				   // update
-				   sql="UPDATE project_reply SET "
+				   sql="UPDATE gg_reply_4 SET "
 					  +"msg=? "
 					  +"WHERE rno=?";
 				   ps=conn.prepareStatement(sql);
@@ -477,4 +474,5 @@ public class BoardDAO {
 			   }catch(Exception ex) {}
 		   }
 	   }
+	
 }

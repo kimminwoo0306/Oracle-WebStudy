@@ -58,10 +58,10 @@
 		$('.ups').click(function(){
 			$('.rinsert').hide();
 			$('.rupdate').hide();
-			let no= $(this).attr("data-no")
+			let bno= $(this).attr("data-no")
 			if(u===0)
 			{
-				$('#u + bno').show();
+				$('#u'+ bno).show();
 				$(this).text("취소")
 				u=1;
 			}
@@ -98,7 +98,7 @@
   <main class="container clear">
     <h2 class="sectiontitle">자유 게시판</h2>
     <div style="height: 5px"></div>
-    <div style="height: 550px">
+    
     <table class="table">
     	<tr>
     		<th width=20% class="text-center">번호</th>
@@ -158,9 +158,9 @@
                                      <c:forEach var="i" begin="1" end="${rvo.group_tab }">
                                         &nbsp;&nbsp;
                                      </c:forEach>
-                                     <img src="image/re_icon.png">
+                                     <img src="../img/re_icon.png">
                                   </c:if>
-                                 ◑<span style="color:orange">${rvo.name }</span>&nbsp;(${rvo.dbday })</td>
+                                 <img src="../img/user.jpg"><span style="color:orange">${rvo.name }</span>&nbsp;(${rvo.dbday })</td>
                                  <td class="text-right">
                                     <c:if test="${sessionScope.id != null }">
                                        <c:if test="${sessionScope.id == rvo.id }">

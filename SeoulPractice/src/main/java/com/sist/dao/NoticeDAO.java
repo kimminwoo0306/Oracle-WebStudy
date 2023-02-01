@@ -17,9 +17,9 @@ public class NoticeDAO {
 		try
 		{
 			conn=CreateConnection.getConnection();
-			String sql = "SELECT nno, title, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
-					+ "FROM (SELECT nno, title, name, regdate, hit,filesize, rownum as num "
-					+ "FROM (SELECT nno, title, name, regdate, hit, filesize "
+			String sql = "SELECT nno, type, title, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
+					+ "FROM (SELECT nno, type, title, name, regdate, hit,filesize, rownum as num "
+					+ "FROM (SELECT nno, type, title, name, regdate, hit, filesize "
 					+ "FROM gg_noticeboard_4 ORDER BY nno DESC)) "
 					+ "WHERE num BETWEEN ? AND ?";
 			ps = conn.prepareStatement(sql);
@@ -36,11 +36,12 @@ public class NoticeDAO {
 			while(rs.next()) {
 				NoticeVO vo = new NoticeVO();
 				vo.setNno(rs.getInt(1));
-				vo.setTitle(rs.getString(2));
-				vo.setName(rs.getString(3));
-				vo.setDbday(rs.getString(4));
-				vo.setHit(rs.getInt(5));
-				vo.setFilesize(rs.getInt(6));
+				vo.setType(rs.getInt(2));
+				vo.setTitle(rs.getString(3));
+				vo.setName(rs.getString(4));
+				vo.setDbday(rs.getString(5));
+				vo.setHit(rs.getInt(6));
+				vo.setFilesize(rs.getInt(7));
 				
 				list.add(vo);
 			}

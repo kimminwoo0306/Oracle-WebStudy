@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>서울99여행</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <style type="text/css">
 
 #header{
@@ -111,9 +112,23 @@ ul li .fa-solid{
 	font-size:20px;
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	$('#logoutBtn').click(function(){
+		$.ajax({
+			type:'post',
+			url:'../member/logout.do',
+			success:function(result)
+			{
+				location.href="../main/main.do";
+			}
+		})
+	})
+	
+})
+</script>
 </head>
 <body>
-
    <div class="wrap">
       <header id="header">
          <div class="container">
@@ -157,17 +172,34 @@ ul li .fa-solid{
                               <li><a href="#">문의게시판</a></li>
                            </ul>
                         </li>
-                         <li class='active'>
-                        	<a href="#" id="join" style="color:#004fff">회원가입
-                        		<div class='active' id="join_bg"></div>
-                        	</a>
-                        </li>
-                        <li class='active'>
-                        	<a href="#" id="login_btn" style="color:white;">로그인
-                        		<div class='active' id="login_bg"></div>
-                        	</a>
-                        </li>
+                        <c:if test="${sessionScope.id==null }">
+	                         <li class='active'>
+	                        	<a href="../member/join.do" id="join" style="color:#004fff">회원가입
+	                        		<div class='active' id="join_bg"></div>
+	                        	</a>
+	                        </li>
+	                        <li class='active'>
+	                        	<a href="../member/login.do" id="login_btn" style="color:white;">로그인
+	                        		<div class='active' id="login_bg"></div>
+	                        	</a>
+	                        </li>
+                        </c:if>
                         
+                        <c:if test="${sessionScope.id!=null }">
+                       		<c:choose>
+                       			<c:when test="${sessionScope.admin=='y'}">
+                       				<li style="font-size: 10px;">${sessionScope.id }(관리자)님 로그인중입니다</li>
+                       			</c:when>
+                       			<c:otherwise>
+                       				<li style="font-size: 10px;">${sessionScope.id }(일반사용자)님 로그인중입니다</li>
+                       			</c:otherwise>
+                       		</c:choose>
+                       		<li><input type=button value="로그아웃" id="logoutBtn"></li>
+					    </c:if>
+					    
+					    
+					    
+					    <!-- <li style="font-size: 10px;">${sessionScope.id }(${sessionScope.admin=='y'?"관리자":"일반사용자" })님 로그인중입니다</li> -->
                         <!-- 마이페이지 -->
 <!--                    <li><a href="#"><i class="fa-solid fa-user"></a></i>
                         	<ul class="sub-menu">

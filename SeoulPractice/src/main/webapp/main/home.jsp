@@ -1,32 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>서울99여행</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
+<!-- <link rel="stylesheet" href="../css.templatemo-style.css"> -->
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
+<style>
 
-<style> @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-.container a{
-            /* a태그 디폴트값 */
-   color:black;
-   text-decoration:none;
-}
+/* 메인배너, 검색창 */
 .mainbanner{
 	position:relative;
 	width:1200px;
 	height:400px;
 	margin:0 auto;
 }
-.main_input{
+.mainbanner .main_input{
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
@@ -46,57 +43,49 @@
   font-size : 18px;
   color:gray;
 }
-.main_input:focus{
+.mainbanner .main_input:focus{
 	outline:none;
 	color:black;
 }
-.main_input:hover{
+.mainbanner .main_input:hover{
 	outline:none;
 	box-shadow:0 0 10px 5px rgb(0,0,0,0.2);
 }
 
-.slide{position:relative;margin:0 auto;}
-.slide .slideCnt{position:relative;overflow:hidden;width:1200px;height:400px}
-.slide .slideCnt li{position:absolute;top:0;left:0;width:100%;height:100%;list-style:none; /*font-size:50px;line-height:500px;*/ text-align:center;color:#fff}
-/*.slide .slideCnt li:nth-child(1){background-color:#ccc}
-.slide .slideCnt li:nth-child(2){background-color:#999}
-.slide .slideCnt li:nth-child(3){background-color:#666}
-.slide .slideCnt li:nth-child(4){background-color:#333}*/
-.slide .btn a{
+.mainbanner .slide{position:relative;margin:0 auto;}
+.mainbanner .slide .slideCnt{position:relative;overflow:hidden;width:1200px;height:400px}
+.mainbanner .slide .slideCnt li{position:absolute;top:0;left:0;width:100%;height:100%;list-style:none; /*font-size:50px;line-height:500px;*/ text-align:center;color:#fff}
+
+.mainbanner .slide .btn a{
 position:absolute;
-top:48%;
+top:46%;
 margin-top:-15px; 
 font-size:20px;
-/*border-radius:3px;width:50px;height:30px;*/
 text-align:center;
 text-decoration:none;
 line-height:30px;}
-.slide .btn a.prev{left:30px;}
-.slide .btn a.next{right:30px;}
-.slide .btn a i.fa-solid{color:white;}
-/*.slide .indicator{display:inline-block;position:relative;bottom:30px}
-.slide .indicator a{display:block;float:left;margin-left:5px;border-radius:3px;width:20px;height:20px;text-align:center;text-decoration:none;line-height:20px;background-color:#fff;color:#333}
-.slide .indicator a:first-child{margin-left:0}
-.slide .indicator a.on{background-color:#000;color:#fff}*/
-.slide .autoBtn{
+.mainbanner .slide .btn a.prev{left:30px;}
+.mainbanner .slide .btn a.next{right:30px;}
+.mainbanner .slide .btn a i.fa-solid{margin:10px; color:white; font-size:20px;}
+.mainbanner .slide .autoBtn{
 	position:absolute;
-	top:20px;
-	right:20px;
+	top:30px;
+	right:30px;
 	border-radius:3px;
 	width:30px;
 	height:30px;
 	text-align:center;
 	text-decoration:none;
 	line-height:30px;
-	/background-color:transparent;*/
+	/*background-color:transparent;*/
 	color:white;
 	font-weight:bold;
 }
-.slide .autoBtn:hover{
+.mainbanner .slide .autoBtn:hover{
   color:white;
 }
 
-.slide .slogan{
+.mainbanner .slide .slogan{
 position : absolute;
 top : 245px;
 left : 100px;
@@ -104,30 +93,156 @@ font-size : 30px;
 font-weight:400;
 color:white;
 }
-.cell {
-  width: 25%;
-  height: 200px;
-  margin-right: 15px;
-  background:white;
-  border-radius: 5px;
+ 
+/* 이미지리스트 슬라이드 */
+
+			 
+
+.topText{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	margin:70px 0 10px 0;
+	z-index:2;
+
 }
-.cell img{
-	width: 100%;
-	height:200px;
-	object-fit:cover;
-	border-radius:10%;
+.topText div{
+	display:inline-block;
+	margin: 0 0 0 50px;
+}
+.text_btn{
+	margin: 0 10px;
+	padding: 0 15px;
+	border-radius:4px;
+	background: #e0e0e0;
 	
 }
-.flickity-page-dots {
-/*    position: absolute;
-    width: 100%;
-    bottom: -25px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    text-align: center;
-    line-height: 1; */
-    display:none;
+.text_btn:hover{
+	color:white;
+	background: #004fff;
+}
+.topText h3{
+	float:left;
+}
+.topText a{
+	float:right;
+	color:black;
+	text-decoration:none;
+}
+.imglistSection{
+	width:100%;
+}
+.main-carousel{
+	width:100%;
+	margin-top:10px;
+
+}
+.flickity-viewport{
+	width:100%;
+
+}
+.cell{
+	width:270px;
+	height:270px;
+	margin:20px;
+	overflow:hidden;
+	background:white;
+	box-shadow : 0 5px 10px 0 rgb(0,0,0,0.2);
+	position:relative;
+}
+.flickity-viewport .cell img{
+	width:100%;
+	height:180px;
+	object-fit:fit;
+}
+.flickity-page-dots{
+	display:none;
+}
+path.arrow{
+	width:20%;
+	height:20%
+}
+.flickity-prev-next-button{
+	width:30px;
+	height:30px;
+	background:white;
+}
+.flickity-prev-next-button.previous{
+	left:20px;
+}
+.flickity-prev-next-button.next{
+	right:20px;
+}
+
+h4.cellName{
+	margin:20px 20px 10px 20px;
+}
+div.cellInfo{
+	margin:0 20px 20px 20px;
+}
+.cell a{
+	color : black;
+	text-decoration:none;
+}
+.cell .cellInfo .gu,i.fa-star{
+	color : #004fff;
+}
+.cell .cellInfo .hit{
+	color : gray;
+	float: right;
+}
+
+
+#foodcate_title, #foodcate_title{
+	color : black;
+	z-index:5;
+}
+/*.jjim{
+	position:absolute;
+	margin:20px;
+}*/
+#foodcate_cell{
+	width:380px;
+	height:230px;
+	margin:15px;
+	
+}	
+#foodcate_cellimg{
+	width:100%;
+	height:100%;
+	object-fit:fit;
+}
+.foodcate_back{
+	position:absolute;
+	width:100%; height:100%;
+	background-color:rgba(0,0,0,0.3);
+}
+.foodcate_titles{
+	width:100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align:center;
+}
+.foodcate_h3, .foodcate_h5{
+	color:white;
+}
+
+#festival_cell{
+	width:580px;
+	height:350px;
+	margin:20px;
+}
+#festival_cellimg{
+	width:100%;
+	height:100%;
+	object-fit:fit;
+}
+.festival_imgbtn{
+	width:100%;
+	background-color:transparent;
+	border:0;
 }
 
 </style>
@@ -137,7 +252,8 @@ color:white;
      
 <div class="container">   
   
-   <div class="mainbanner">
+    <!-- 메인배너 -->
+    <div class="mainbanner">
 	   <div class="slide">
 		    <ul class="slideCnt">
 		        <li><img src="../img/seoul-01.png" title="경복궁 경회루"></li>
@@ -151,29 +267,177 @@ color:white;
 		        <a href="#" class="prev"><i class="fa-solid fa-angle-left"></i></a>
 		        <a href="#" class="next"><i class="fa-solid fa-angle-right"></i></a>
 		    </div>
-		    <%--<div class="indicator">
-		        <a href="#">1</a>
-		        <a href="#">2</a>
-		        <a href="#">3</a>
-		        <a href="#">4</a>
-		    </div>--%>
 		    <a href="#" class="autoBtn"></a>
 		    <p class="slogan">서울 구석구석을 여행하다</p>
-		    <input type=text class="main_input" placeholder="서울 어디로 떠나볼까요?">
+		    <form method =post action="../main/search.do">
+		    	<input type=text class="main_input" placeholder="서울 어디로 떠나볼까요?" name="searchWord" autocomplete="off">
+		    </form>
 		</div>
     </div>
+    
+    <!-- *** 추후 리스트 지정된 기준(추천, 조회수 등)에 맞춰 출력하기 -->
+	<!-- 여행지 리스트 -->
+	<div class="topText">
+    	<h3>서울에서 꼭 가봐야할 곳</h3>
+    	<a href="../trip/trip_all.do?tcno=1" class="moreClick">더보기&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			  <c:forEach var="tvo" items="${tlist1 }" >
+  
+			     <div class="cell">
+			         <button class="jjim_btn"><i class="fa-sharp fa-solid fa-heart"></i></button>
+			     	 <a href="../trip/trip_detail.do?tno=${tvo.tno }">    
+			         <img class="cellImg" src="${tvo.image }">
+			         <h4 class="cellName">${tvo.name }</h4>
+			         <div class="cellInfo">
+			            <span class="gu">서울 ${tvo.addr}</span><span class="hit">&nbsp;&nbsp;&nbsp;&nbsp;조회수 ${tvo.hit}</span> 
+			         </div>
+			     	 </a>	     
+			     </div>
+			      
+			  </c:forEach>
+			</div>
+      	</div>
+    </div>
+    
+	
+				   
+
+
+    <div class="topText">
+    	<h3>자연과 휴식을 즐길 수 있는 곳</h3>
+    	<a href="../trip/trip_all.do?tcno=2" class="moreClick">더보기&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			  <c:forEach var="tvo" items="${tlist2 }" >
+  
+			     <div class="cell">
+			         <button class="jjim_btn"><i class="fa-sharp fa-solid fa-heart"></i></button>
+			     	 <a href="../trip/trip_detail.do?tno=${tvo.tno }">    
+			         <img class="cellImg" src="${tvo.image }">
+			         <h4 class="cellName">${tvo.name }</h4>
+			         <div class="cellInfo">
+			            <span class="gu">서울 ${tvo.addr}</span><span class="hit">&nbsp;&nbsp;&nbsp;&nbsp;조회수 ${tvo.hit}</span> 
+			         </div>
+			     	 </a>	     
+			     </div>
+			      
+			  </c:forEach>
+			</div>
+      	</div>
+    </div>
+    
+			  
+    
+	
 
 	
-	
-</div>
-<br>
-<h4> 서울 여행지</h4>
-<div class="main-carousel">
-  <div class="cell"><img src="../img/seoul-02.png"></div>
-  <div class="cell"><img src="../img/seoul-03.png"></div>
-  <div class="cell"><img src="../img/seoul-04.png"></div>
-  <div class="cell"><img src="../img/seoul-05.png"></div>
-  <div class="cell"><img src="../img/seoul-06.png"></div>
+    <!-- 맛집 카테고리 리스트 -->
+    
+	<div class="topText">
+    	<h3>서울 최고의 맛집리스트</h3>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			
+			  <c:forEach var="fvo" items="${flist }" varStatus="s">
+			     <c:if test="${s.index>=0 && s.index<12 }">
+				     <div class="cell" id="foodcate_cell">
+				         <a href="../food/food_list.do?fcno=${fvo.fcno }">
+				         <div class="foodcate_back"></div>
+	    			     <img src="${fvo.image }" id="foodcate_cellimg">
+	    			     <div class="foodcate_titles">
+				           <h3 class="cellName foodcate_h3">${fvo.title }</h3>
+				           <h5 class="cellName foodcate_h5" id="foodcate_subtitle">${fvo.subtitle }</h5>
+				         </div>
+				         </a>
+				     </div>
+			  	</c:if>
+			  </c:forEach>
+			  
+			</div>
+      	</div>
+    </div>
+    
+    <div class="topText">
+    	<h3>서울 지역별 인기 맛집</h3>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			
+			  <c:forEach var="fvo" items="${flist }" varStatus="s">
+			     <c:if test="${s.index>=12 && s.index<18 }">
+				     <div class="cell" id="foodcate_cell">
+				         <a href="../food/food_list.do?fcno=${fvo.fcno }">
+				         <div class="foodcate_back"></div>
+	    			     <img src="${fvo.image }" id="foodcate_cellimg">
+	    			     <div class="foodcate_titles">
+				           <h3 class="cellName foodcate_h3">${fvo.title }</h3>
+				           <h5 class="cellName foodcate_h5" id="foodcate_subtitle">${fvo.subtitle }</h5>
+				         </div>
+				         </a>
+				     </div>
+			  	</c:if>
+			  </c:forEach>
+			  
+			</div>
+      	</div>
+    </div>
+    
+    
+    <div class="topText">
+    	<h3>메뉴별 인기 맛집</h3>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			
+			  <c:forEach var="fvo" items="${flist }" varStatus="s">
+			     <c:if test="${s.index>=18 && s.index<30 }">
+				     <div class="cell" id="foodcate_cell">
+				         <a href="../food/food_list.do?fcno=${fvo.fcno }">
+				         <div class="foodcate_back"></div>
+	    			     <img src="${fvo.image }" id="foodcate_cellimg">
+	    			     <div class="foodcate_titles">
+				           <h3 class="cellName foodcate_h3">${fvo.title }</h3>
+				           <h5 class="cellName foodcate_h5" id="foodcate_subtitle">${fvo.subtitle }</h5>
+				         </div>
+				         </a>
+				     </div>
+			  	</c:if>
+			  </c:forEach>
+			  
+			</div>
+      	</div>
+    </div>
+    
+    <!-- 축제 리스트 -->
+    
+	<div class="topText">
+    	<h3>현재 진행중인 행사</h3>
+    </div>
+    <div class="imglistSection">
+      	<div class="imglistGroup">
+			<div class="main-carousel">
+			
+			  <c:forEach var="fsvo" items="${fslist }" >
+			     <div class="cell" id="festival_cell">
+    			   <img src="${fsvo.image }" id="festival_cellimg">
+			     </div>
+			  </c:forEach>
+			</div>
+      	</div>
+    </div>	
+    
+
+
+
 </div>
 
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
@@ -287,12 +551,6 @@ moveIng = false;
 //$slideBtnIndi.eq(nextNum).addClass("on").siblings().removeClass("on");
 };
 
-$('.main-carousel').flickity({
-	  // options
-	  cellAlign: 'left',
-	  wrapAround: true,
-	  freeScroll: true
-	});
 
 /*function indi(indiNum){
 if(moveIng == false){
@@ -308,6 +566,29 @@ prevNum = nextNum;
 };*/
 
 
+/* 이미지리스트 슬라이드 */
+
+$('.main-carousel').flickity({
+	  // options
+	  cellAlign: 'left',
+	  wrapAround:true,
+	  freeScroll: true
+	});
+
+/* 행사 이미지버튼(상세정보 팝업) */
+
+     function show() {
+        document.querySelector(".background").className = "background show";
+      }
+
+      function close() {
+        document.querySelector(".background").className = "background";
+      }
+
+      document.querySelector(".festival_imgbtn").addEventListener("click", show);
+      document.querySelector("#close_btn").addEventListener("click", close);
+
 </script>
 </body>
 </html>
+

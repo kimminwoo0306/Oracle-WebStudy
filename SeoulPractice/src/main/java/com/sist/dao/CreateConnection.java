@@ -3,8 +3,10 @@ import java.util.*;
 import java.sql.*;
 import javax.naming.*;
 import javax.sql.*;
+
 public class CreateConnection {
 	private static Connection conn;
+	
 	public static Connection getConnection()
 	{
 		try
@@ -16,7 +18,8 @@ public class CreateConnection {
 		}catch(Exception ex) {}
 		return conn;
 	}
-	public static void disConnection(Connection conn, PreparedStatement ps)
+	
+	public static void disConnection(Connection conn,PreparedStatement ps)
 	{
 		try
 		{

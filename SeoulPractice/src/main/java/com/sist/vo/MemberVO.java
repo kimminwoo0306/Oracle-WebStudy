@@ -2,8 +2,14 @@ package com.sist.vo;
 
 public class MemberVO {
 	private int count;
-	private String id, pwd, name, sex, nick, birth, email, phone, tos, admin;
+	private String id, pwd, name, sex, nick, birth, email, phone, tos, admin, msg;
 	
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	public int getCount() {
 		return count;
 	}

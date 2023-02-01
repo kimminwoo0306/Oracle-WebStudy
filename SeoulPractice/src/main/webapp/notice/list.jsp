@@ -15,15 +15,8 @@
     <div style="height: 5px"></div>
     <div style="height: 550px">
     	<table class="table">
-    		<tr>
-    			<td>
-    				<a href="../notice/insert.do" class="btn btn-sm btn-danger" style="float:left">새글</a>
-    			</td>
-    		</tr>
-    	</table>
-    	<table class="table">
     	 <tr>
-    	 	<th width=10% class="text-center">번호</th>
+    	 	<th width=10% class="text-center">구분</th>
     	 	<th width=30% class="text-center">제목</th>
     	 	<th width=15% class="text-center">이름</th>
     	 	<th width=15% class="text-center">작성일</th>
@@ -35,7 +28,7 @@
     	  --%>
     	 <c:forEach var="vo" items="${list }"> <%-- request.setAttribute("list", list)  => request.getAttribute("list") == ${list }--%>
     	 	<tr>
-    	 		<td width="10%" class="text-center">${vo.nno }</td> <%-- vo.getNo() --%>
+    	 		<td width="10%" class="text-center">${vo.prefix }</td> <%-- vo.getNo() --%>
     	 		<td width="30%" style="color: black">
     	 		
     	 		<a href="../notice/detail.do?nno=${vo.nno }"style="color: black">${vo.title }</a> &nbsp;

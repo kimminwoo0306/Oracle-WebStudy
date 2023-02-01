@@ -56,7 +56,7 @@ public class BoardModel {
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
-			String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\SeoulPractice\\upload"; // 업로드된 파일 저장 위치
+			String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SeoulPractice\\upload"; // 업로드된 파일 저장 위치
 			int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
 			String enctype="UTF-8"; // 한글 파일명
 			MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
@@ -108,6 +108,11 @@ public class BoardModel {
 		BoardVO vo=dao.boardDetailData(Integer.parseInt(bno));
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../board/detail.jsp");
+		
+		List<BoardReplyVO> list=dao.replyListData(Integer.parseInt(bno));
+		request.setAttribute("list", list);
+		request.setAttribute("count", list.size());
+		
 		return "../main/main.jsp";
 	}
 	@RequestMapping("board/delete.do")
@@ -175,29 +180,46 @@ public class BoardModel {
 		   {
 			   // 한글 변환
 			   request.setCharacterEncoding("UTF-8");
+			   String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SeoulPractice\\upload"; // 업로드된 파일 저장 위치
+				int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
+				String enctype="UTF-8"; // 한글 파일명
+				MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
+				String name=request.getParameter("name");
+				   String title=request.getParameter("title");
+				   String content=request.getParameter("content");
+				   String pwd=request.getParameter("pwd");
+				   String bno=request.getParameter("bno");
+				   String filename=mr.getFilesystemName("upload");	
+				   String moddate=request.getParameter(bno);
+				   BoardVO vo=new BoardVO();
+				   vo.setName(name);
+				   vo.setTitle(title);
+				   vo.setContent(content);
+				   vo.setPwd(pwd);
+				   vo.setBno(Integer.parseInt(bno));
+				   BoardDAO dao=new BoardDAO();
+				   boolean bCheck=dao.boardUpdate(vo);
+				   String msg="";
+				   if(bCheck==true)
+					   request.setAttribute("msg", "yes");
+				   else
+					   request.setAttribute("msg", "no");
+				if(filename==null) // 업로드가 없는 상태
+				{
+					vo.setFilename("");
+					vo.setFilesize(0);
+				}
+				else // 업로드가 된 상태
+				{
+					File file=new File(path+"\\"+filename);
+					vo.setFilename(filename);
+					vo.setFilesize((int)file.length()); // 실제 저장된 파일의 크기를 읽어온다
+				}
 		   }catch(Exception ex) {}
-		   String name=request.getParameter("name");
-		   String title=request.getParameter("title");
-		   String content=request.getParameter("content");
-		   String pwd=request.getParameter("pwd");
-		   String bno=request.getParameter("bno");
-		   String moddate=request.getParameter(bno);
-		   BoardVO vo=new BoardVO();
-		   vo.setName(name);
-		   vo.setTitle(title);
-		   vo.setContent(content);
-		   vo.setPwd(pwd);
-		   vo.setBno(Integer.parseInt(bno));
-		   BoardDAO dao=new BoardDAO();
-		   boolean bCheck=dao.boardUpdate(vo);
-		   String msg="";
-		   if(bCheck==true)
-			   request.setAttribute("msg", "yes");
-		   else
-			   request.setAttribute("msg", "no");
 
 		return "../board/update_ok.jsp";
 	   }
+	
 	@RequestMapping("board/reply_insert.do")
 	public String freeboard_reply_insert(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -217,6 +239,56 @@ public class BoardModel {
 		vo.setName(name);
 		BoardDAO dao=new BoardDAO();
 		dao.replyInsert(vo);
+		return "redirect:detail.do?bno="+bno;
+	}
+	@RequestMapping("board/reply_update.do")
+	public String reply_update(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String rno=request.getParameter("rno");
+		String msg=request.getParameter("msg");
+		//DAO 연결
+		BoardDAO dao=new BoardDAO();
+		dao.replyUpdate(Integer.parseInt(rno), msg);
+		return "redirect:detail.do?bno="+bno;
+	}
+	@RequestMapping("board/reply_reply_insert.do")
+	public String reply_reply_insert(HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
+			request.setCharacterEncoding("UTF-8");
+		}catch(Exception ex) {}
+		String bno=request.getParameter("bno");
+		String pno=request.getParameter("pno"); // 댓글번호 => 상위번호
+		String msg=request.getParameter("msg");
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name");
+		
+		BoardReplyVO vo=new BoardReplyVO();
+		vo.setBno(Integer.parseInt(bno));
+		vo.setId(id);
+		vo.setName(name);
+		vo.setMsg(msg);
+		BoardDAO dao=new BoardDAO();
+		// 답변 => 메소드 호출
+		dao.replyReplyInsert(Integer.parseInt(pno), vo);
+		return "redirect:detail.do?bno="+bno;
+	}
+	@RequestMapping("board/reply_delete.do")
+	public String reply_delete(HttpServletRequest request, HttpServletResponse response)
+	{
+		String rno=request.getParameter("rno");
+		String bno=request.getParameter("bno");
+		BoardDAO dao=new BoardDAO();
+		// 삭제처리
+		dao.replyDelete(Integer.parseInt(rno));
 		return "redirect:detail.do?bno="+bno;
 	}
 }

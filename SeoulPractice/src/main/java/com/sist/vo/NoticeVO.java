@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class NoticeVO {
 	private int nno, type, hit, filesize;
-	private String name, title, content, id,dbday, filename;
+	private String name, title, content, id,dbday, filename, prefix;
 	private Date regdate, moddate;
 	public int getNno() {
 		return nno;
@@ -86,6 +86,12 @@ public class NoticeVO {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public String getPrefix() {
+		return prefix;
+	}
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 	
 }

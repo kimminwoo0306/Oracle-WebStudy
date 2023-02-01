@@ -17,6 +17,7 @@ import com.sist.vo.NoticeVO;
 
 	@Controller
 	public class NoticeModel {
+		private String[] prefix= {"","일반공지","축제공지","맛집공지","여행공지","예약공지"};
 		@RequestMapping("notice/list.do")
 		 public String notice(HttpServletRequest request, HttpServletResponse response) {
 			String page = request.getParameter("page");
@@ -33,6 +34,11 @@ import com.sist.vo.NoticeVO;
 	    int endPage = ((curpage-1)/BLOCK * BLOCK) + BLOCK;
 	    if (endPage > totalpage)
 	        endPage = totalpage;
+	    
+	    for(NoticeVO vo:list)
+		{
+			vo.setPrefix("["+prefix[vo.getType()]+"]");
+		}
 	    
 	    request.setAttribute("list", list);
 	    request.setAttribute("curpage", curpage);
