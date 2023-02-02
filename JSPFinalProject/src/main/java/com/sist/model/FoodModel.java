@@ -5,8 +5,10 @@ import com.sist.controller.RequestMapping;
 
 import java.util.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -68,6 +70,28 @@ public class FoodModel {
 		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
+	@RequestMapping("food/food_before_detail.do")
+	public String food_before_detail(HttpServletRequest request, HttpServletResponse response)
+	{
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		String user="";
+		if(id==null)
+			user="guest";
+		else
+			user=id;
+				
+		String fno=request.getParameter("fno");
+		try
+		{
+			Cookie cookie=new Cookie(user+"_food"+fno, fno);
+			cookie.setPath("/");
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
+		}catch(Exception ex) {}
+		return "redirect:../food/food_detail.do?fno="+fno;
+	}
 	@RequestMapping("food/food_detail.do")
 	public String food_detail(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -102,7 +126,8 @@ public class FoodModel {
 			type=type.replace('/', '|');
 		}
 		List<RecipeVO> nList=dao.food_recipe_data(type);
-		request.setAttribute("nList", nList);
+		request.setAttribute("nList1", nList); // commonsModel에 있는 nList와 겹치므로 이름을 다르게
+		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
 }

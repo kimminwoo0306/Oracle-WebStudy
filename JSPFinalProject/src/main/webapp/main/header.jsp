@@ -87,7 +87,7 @@ $(function(){
      <!-- 로그인된 상태 -->
      <c:if test="${sessionScope.id!=null }">
       <ul class="inline">
-        <li>${sessionScope.name }(${sessionScope.admin=='y'?"관리자":"일반사용자" })님 로그인중입니다</li>
+        <li>${sessionScope.name }(${sessionScope.admin=='y'?"관리자":"일반사용자" })님</li>
         <li><input type=button class="btn btn-lg btn-primary" value="로그아웃" id="logoutBtn"></li>
       </ul>
      </c:if>
