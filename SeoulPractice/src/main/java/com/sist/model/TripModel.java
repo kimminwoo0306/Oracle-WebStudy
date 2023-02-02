@@ -63,6 +63,12 @@ public class TripModel {
 		TripDAO dao=new TripDAO();
 		TripVO vo=dao.tripDetail(Integer.parseInt(tno));
 		
+		request.setAttribute("main_jsp", "../trip/trip_detail.jsp");
+		AllReplyDAO adao=new AllReplyDAO();
+		List<AllReplyVO> rList=adao.allReplyListData(Integer.parseInt(tno), 1);
+		request.setAttribute("rList", rList);
+		request.setAttribute("count", rList.size());
+		
 		//주소에서 지역구만 자르기
 		String gu=vo.getAddr();
 		String[] addrSplit=gu.split(" ");

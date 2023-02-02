@@ -23,7 +23,7 @@
 			else
 			{
 				$('#del').hide();
-				$('#delete').text("수정");
+				$('#delete').text("삭제");
 				i=0;
 			}
 		})
@@ -92,6 +92,18 @@
 		})
 	})
 </script>
+<style type="text/css">
+.commentbody{
+   width:100%;
+   padding: 70px;
+   background: white;
+}
+.whitegray_btn{
+	width:8px;
+	padding : 3px 8px 3px 8px;
+	margin : 1px 1px 1px 1px;
+}
+</style>
 </head>
 <body>
 <div class="wrapper row3">
@@ -121,9 +133,9 @@
     	</tr>
     	<tr>
     		<td class="text-right" colspan="4">
-    		<a href="../board/update.do?bno=${vo.bno }" class="btn btn-xs btn-success">수정</a>
-    		<span class="btn btn-xs btn-warning" id="delete">삭제</span>
-    		<a href="../board/list.do" class="btn btn-xs btn-info">목록</a>
+    		<a href="../board/update.do?bno=${vo.bno }" class="whitegray_btn">수정</a>
+    		<span class="whitegray_btn" id="delete">삭제</span>
+    		<a href="../board/list.do" class="whitegray_btn">목록</a>
     		</td>
     	</tr>
     	<tr id="del" style="display: none" data-no="${vo.bno }">
@@ -137,8 +149,10 @@
         </tr>
     </table>
     <div style="height: 5px"></div>
-    <div class="content three_quarter first">
+    <div class="comment">
             <h3 class="sectiontitle">댓글(${count })</h3>
+    </div>
+    <div class="commentbody">
             <c:if test="${count == 0 }">
                <table class="table">
                   <tr>
@@ -164,10 +178,10 @@
                                  <td class="text-right">
                                     <c:if test="${sessionScope.id != null }">
                                        <c:if test="${sessionScope.id == rvo.id }">
-                                          <span class="btn btn-xs btn-success ups" data-no="${rvo.rno }">수정</span>
-                                          <a href="../board/reply_delete.do?rno=${rvo.rno }&bno=${vo.bno}" class="btn btn-xs btn-info">삭제</a>
+                                          <span class="whitegray_btn ups" data-no="${rvo.rno }">수정</span>
+                                          <a href="../board/reply_delete.do?rno=${rvo.rno }&bno=${vo.bno}" class="whitegray_btn">삭제</a>
                                        </c:if>
-                                       <span class="btn btn-xs btn-warning replys" data-no="${rvo.rno }">댓글</span>
+                                       <span class="whitegray_btn replys" data-no="${rvo.rno }">댓글</span>
                                     </c:if>
                                  </td>
                               </tr>

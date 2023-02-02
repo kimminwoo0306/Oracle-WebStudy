@@ -7,13 +7,41 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.btn {
+  flex: 1 1 auto;
+  margin: 10px;
+  padding: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+ /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+ }
+
+/* Demo Stuff End -> */
+
+/* <- Magic Stuff Start */
+
+/* .btn:hover 
+  background-position: right center; /* change the direction of the change here 
+}
+*/
+
+a.whitegray_btn{
+   padding: 5px 10px;
+   margin: 5px 5px;
+}
+</style>
 </head>
 <body>
 <div class="wrapper row3">
   <main class="container clear">
     <h2 class="sectiontitle">공지사항</h2>
     <div style="height: 5px"></div>
-    <div style="height: 550px">
     <table class="table">
     	<tr>
     		<th width=20% class="text-center">번호</th>
@@ -36,9 +64,8 @@
     	</tr>
     	<tr>
     		<td class="text-right" colspan="4">
-    		<a href="../notice/update.do" class="btn btn-xs btn-success">수정</a>
-    		<a href="../notice/delete.do" class="btn btn-xs btn-warning">삭제</a>
-    		<a href="../notice/list.do" class="btn btn-xs btn-info">목록</a>
+    	     	<a href="../notice/list.do" class="whitegray_btn">목록</a>
+    		</td>
     	</tr>
     </table>
   </main>

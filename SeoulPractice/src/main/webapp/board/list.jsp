@@ -17,7 +17,9 @@
     	<table class="table">
     		<tr>
     			<td>
+    			   <c:if test="${sessionScope.id!=rvo.id }">
     				<a href="../board/insert.do" class="btn btn-sm btn-danger" style="float:left">새글</a>
+    			   </c:if>
     			</td>
     		</tr>
     	</table>

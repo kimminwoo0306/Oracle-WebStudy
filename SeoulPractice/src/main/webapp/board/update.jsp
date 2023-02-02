@@ -70,7 +70,7 @@ resize: none;
     <h2 class="sectiontitle">수정하기</h2>
     <div style="height: 5px"></div>
     <div style="height: 550px">
-    <form method="post" action="../board/update_ok.do" enctype="multipart/form-data">
+    <form id="update_frm">
     	    <table class="table">
     	<tr>
     		<th width=20% class="text-center">이름</th>

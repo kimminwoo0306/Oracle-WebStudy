@@ -66,7 +66,7 @@ public class BoardModel {
 			String content=mr.getParameter("content");
 			String pwd=mr.getParameter("pwd");
 			String filename=mr.getFilesystemName("upload");			
-			// FreeBoardVO에 묶어서 오라클 전송
+			// BoardVO에 묶어서 오라클 전송
 			BoardVO vo=new BoardVO();
 			vo.setName(name);
 			vo.setTitle(title);
@@ -180,48 +180,31 @@ public class BoardModel {
 		   {
 			   // 한글 변환
 			   request.setCharacterEncoding("UTF-8");
-			   String path="C:\\webDev\\webStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SeoulPractice\\upload"; // 업로드된 파일 저장 위치
-				int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
-				String enctype="UTF-8"; // 한글 파일명
-				MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
-				String name=request.getParameter("name");
-				   String title=request.getParameter("title");
-				   String content=request.getParameter("content");
-				   String pwd=request.getParameter("pwd");
-				   String bno=request.getParameter("bno");
-				   String filename=mr.getFilesystemName("upload");	
-				   String moddate=request.getParameter(bno);
-				   BoardVO vo=new BoardVO();
-				   vo.setName(name);
-				   vo.setTitle(title);
-				   vo.setContent(content);
-				   vo.setPwd(pwd);
-				   vo.setBno(Integer.parseInt(bno));
-				   BoardDAO dao=new BoardDAO();
-				   boolean bCheck=dao.boardUpdate(vo);
-				   String msg="";
-				   if(bCheck==true)
-					   request.setAttribute("msg", "yes");
-				   else
-					   request.setAttribute("msg", "no");
-				if(filename==null) // 업로드가 없는 상태
-				{
-					vo.setFilename("");
-					vo.setFilesize(0);
-				}
-				else // 업로드가 된 상태
-				{
-					File file=new File(path+"\\"+filename);
-					vo.setFilename(filename);
-					vo.setFilesize((int)file.length()); // 실제 저장된 파일의 크기를 읽어온다
-				}
 		   }catch(Exception ex) {}
+		   String name=request.getParameter("name");
+		   String title=request.getParameter("title");
+		   String content=request.getParameter("content");
+		   String pwd=request.getParameter("pwd");
+		   String bno=request.getParameter("bno");
+		   String moddate=request.getParameter(bno);
+		   BoardVO vo=new BoardVO();
+		   vo.setName(name);
+		   vo.setTitle(title);
+		   vo.setContent(content);
+		   vo.setPwd(pwd);
+		   vo.setBno(Integer.parseInt(bno));
+		   BoardDAO dao=new BoardDAO();
+		   boolean bCheck=dao.boardUpdate(vo);
+		   String msg="";
+		   if(bCheck==true)
+			   request.setAttribute("msg", "yes");
+		   else
+			   request.setAttribute("msg", "no");
 
 		return "../board/update_ok.jsp";
 	   }
-	
 	@RequestMapping("board/reply_insert.do")
-	public String freeboard_reply_insert(HttpServletRequest request, HttpServletResponse response)
+	public String board_reply_insert(HttpServletRequest request, HttpServletResponse response)
 	{
 		try
 		{

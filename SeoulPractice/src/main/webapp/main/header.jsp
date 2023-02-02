@@ -186,16 +186,23 @@ $(function(){
                         </c:if>
                         
                         <c:if test="${sessionScope.id!=null }">
-                       		<c:choose>
-                       			<c:when test="${sessionScope.admin=='y'}">
-                       				<li style="font-size: 10px;">${sessionScope.id }(관리자)님 로그인중입니다</li>
-                       			</c:when>
-                       			<c:otherwise>
-                       				<li style="font-size: 10px;">${sessionScope.id }(일반사용자)님 로그인중입니다</li>
-                       			</c:otherwise>
-                       		</c:choose>
-                       		<li><input type=button value="로그아웃" id="logoutBtn"></li>
-					    </c:if>
+                       <c:if test="${sessionScope.admin=='n' }">
+                        <li><a href="#"><i class="fa-solid fa-user"></i></a>
+                             <ul class="sub-menu">
+                                 <li><a href="#">마이페이지</a></li>
+                                 <li><a href="../member/logout.do" id="logoutBtn">로그아웃</a></li>
+                             </ul>
+                        </li>  
+                       </c:if>
+                       <c:if test="${sessionScope.admin=='y' }">
+                       <li><a href="#"><i class="fa-solid fa-user"></i></a>
+                       <ul class="sub-menu">
+                        <li><a href="../adminpage/admin_main.do">관리자페이지</a></li>
+                     <%--  <li><input type=button value="로그아웃" id="logoutBtn"></li>  --%>  
+                        <li><a href="../member/logout.do" id="logoutBtn">로그아웃</a></li>
+                        </ul>
+                       </c:if>
+                        </c:if>
 					    
 					    
 					    
