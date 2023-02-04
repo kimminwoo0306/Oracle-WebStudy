@@ -34,6 +34,8 @@ import com.sist.vo.NoticeVO;
 	    int endPage = ((curpage-1)/BLOCK * BLOCK) + BLOCK;
 	    if (endPage > totalpage)
 	        endPage = totalpage;
+	    if (totalpage==0)
+	    	totalpage = totalpage+1;
 	    
 	    for(NoticeVO vo:list)
 		{

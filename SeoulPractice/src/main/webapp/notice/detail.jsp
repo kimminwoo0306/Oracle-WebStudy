@@ -45,19 +45,19 @@ a.whitegray_btn{
     <table class="table">
     	<tr>
     		<th width=20% class="text-center">번호</th>
-    		<td width=30% class="text-center">${vo.nno }</td>
+    		<td width=30% class="text-left">${vo.nno }</td>
     		<th width=30% class="text-center">작성일</th>
-    		<td width=30% class="text-center">${vo.dbday }</td>
+    		<td width=30% class="text-left">${vo.dbday }</td>
     	</tr>
     	<tr>
     		<th width=20% class="text-center">이름</th>
-    		<td width=30% class="text-center">${vo.name }</td>
+    		<td width=30% class="text-left">${vo.name }</td>
     		<th width=30% class="text-center">조회수</th>
-    		<td width=30% class="text-center">${vo.hit }</td>
+    		<td width=30% class="text-left">${vo.hit }</td>
     	</tr>
     	<tr>
     		<th width=20% class="text-center">제목</th>
-    		<td colspan="3" class="text-center">${vo.title }</td>
+    		<td colspan="3" class="text-left">${vo.title }</td>
     	</tr>
     	<tr>
     		<td class="text-left" valign="top" colspan="4" height="200"><pre style="white-space: pre-wrap;background-color:white;border:none">${vo.content }</pre></td>

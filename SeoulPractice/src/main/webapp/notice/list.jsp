@@ -51,9 +51,9 @@
     	<table class="table">
     		<tr>
     			<td class="text-center">
-    				<a href="../notice/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">Previous</a>
+    				<a href="../notice/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">이전</a>
     				${curpage } page / ${totalpage } pages
-    				<a href="../notice/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">Next</a>
+    				<a href="../notice/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">다음</a>
     			</td>
     		</tr>
     	</table>

@@ -10,11 +10,11 @@
 <script type="text/javascript">
 $(function(){
    $('#updateBtn').click(function(){ // .on('click', function(){})
-      let name = $('#name').val();
+      /* let name = $('#name').val();
       if(name.trim() === "") {
          $('#name').focus()
          return
-      }
+      } */
       
       let title = $('#title').val();
       if(title.trim() === "") {
@@ -72,23 +72,23 @@ resize: none;
     <div style="height: 550px">
     <form id="update_frm">
     	    <table class="table">
-    	<tr>
+    	<%-- <tr>
     		<th width=20% class="text-center">이름</th>
     		<td width=80% align=left>
     		<input type=text name=name size=30 class="input-sm" value="${vo.name}" id="name">
-    		<input type="hidden" name=bno value="${vo.bno }" id="bno">
     		</td>
-    	</tr>
+    	</tr> --%>
     	<tr>
     		<th width=20% class="text-center">제목</th>
     		<td width=80% align=left>
     			<input type=text name=title size=60 class="input-sm" id="title" value="${vo.title }">
+    			<input type="hidden" name=bno value="${vo.bno }" id="bno">
     		</td>
     	</tr>
     	<tr>
     		<th width=20% class="text-center">내용</th>
     		<td width=80% align=left>
-    			<textarea rows="10" cols="60" name="content" id="content">${vo.content }</textarea required>
+    			<textarea rows="10" cols="60" name="content" id="content">${vo.content }</textarea>
     		</td>
     	</tr>
     	<tr>
@@ -105,8 +105,8 @@ resize: none;
     	</tr>
     	<tr>
     		<td colspan="2" class="text-center">
-    			<input type=button value="수정" class="btn btn-sm btn-danger" id="updateBtn">
-    			<input type=button value="취소" class="btn btn-sm btn-danger" onclick="javascript:history.back()">
+    			<input type=button value="수정" class="whitegray_btn" id="updateBtn">
+    			<input type=button value="취소" class="whitegray_btn" onclick="javascript:history.back()">
     		</td>
     	</tr>
     </table>

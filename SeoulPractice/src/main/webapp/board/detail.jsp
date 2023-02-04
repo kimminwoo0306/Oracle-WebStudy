@@ -97,11 +97,16 @@
    width:100%;
    padding: 70px;
    background: white;
+   box-shadow: 5px 5px 5px 3px gray;
+   background-color:white;
 }
 .whitegray_btn{
-	width:8px;
-	padding : 3px 8px 3px 8px;
-	margin : 1px 1px 1px 1px;
+	/* width:15px; */
+	 padding : 3px 8px 3px 8px;
+	 margin : 1px 1px 1px 1px; 
+}
+textarea{
+resize: none;
 }
 </style>
 </head>
@@ -114,27 +119,31 @@
     <table class="table">
     	<tr>
     		<th width=20% class="text-center">번호</th>
-    		<td width=30% class="text-center">${vo.bno }</td>
+    		<td width=30% class="text-left">${vo.bno }</td>
     		<th width=30% class="text-center">작성일</th>
-    		<td width=30% class="text-center">${vo.dbday }</td>
+    		<td width=30% class="text-left">${vo.dbday }</td>
     	</tr>
     	<tr>
     		<th width=20% class="text-center">이름</th>
-    		<td width=30% class="text-center">${vo.name }</td>
+    		<td width=30% class="text-left">${vo.id }</td>
     		<th width=30% class="text-center">조회수</th>
-    		<td width=30% class="text-center">${vo.hit }</td>
+    		<td width=30% class="text-left">${vo.hit }</td>
     	</tr>
     	<tr>
     		<th width=20% class="text-center">제목</th>
-    		<td colspan="3" class="text-center">${vo.title }</td>
+    		<td colspan="3" class="text-left">${vo.title }</td>
     	</tr>
     	<tr>
-    		<td class="text-left" valign="top" colspan="4" height="200"><pre style="white-space: pre-wrap;background-color:white;border:none">${vo.content }</pre></td>
+    		<td class="text-left" valign="top" colspan="4" height="200"><pre style="white-space: pre-wrap;background-color:white;border:none;font-size: 16px;font-family:Noto Sans KR">${vo.content }</pre></td>
     	</tr>
     	<tr>
     		<td class="text-right" colspan="4">
+    		<c:if test="${sessionScope.id != null }">
+             <c:if test="${sessionScope.id == vo.id }">
     		<a href="../board/update.do?bno=${vo.bno }" class="whitegray_btn">수정</a>
     		<span class="whitegray_btn" id="delete">삭제</span>
+    		</c:if>
+    		</c:if>
     		<a href="../board/list.do" class="whitegray_btn">목록</a>
     		</td>
     	</tr>
@@ -174,7 +183,9 @@
                                      </c:forEach>
                                      <img src="../img/re_icon.png">
                                   </c:if>
-                                 <img src="../img/user.jpg"><span style="color:orange">${rvo.name }</span>&nbsp;(${rvo.dbday })</td>
+                                 <img src="../img/user.jpg"><span style="color:orange">${rvo.name }</span>&nbsp;(${rvo.dbday })
+                                 <pre style="white-space: pre-wrap; background-color: white; border: none;">${rvo.msg }</pre>
+                                 </td>
                                  <td class="text-right">
                                     <c:if test="${sessionScope.id != null }">
                                        <c:if test="${sessionScope.id == rvo.id }">
@@ -185,19 +196,19 @@
                                     </c:if>
                                  </td>
                               </tr>
-                              <tr>
+                              <%-- <tr>
                                  <td colspan="2">
                                     <pre style="white-space: pre-wrap; background-color: white; border: none">${rvo.msg }</pre>
                                  </td>
-                              </tr>
+                              </tr> --%>
                               <%-- 대댓글 --%>
                               <tr id="r${rvo.rno }" class="rinsert" style="display:none">
-                                 <td colspan="2">
+                                 <td colspan="2" style="height:15px;">
                                     <form method="post" action="../board/reply_reply_insert.do">
                                        <input type=hidden name="bno" value="${vo.bno }">
                                        <input type="hidden" name="pno" value="${rvo.rno }">
-                                       <textarea rows="3" cols="80" name="msg" style="float: left"></textarea>&nbsp;
-                                       <input type="submit" value="댓글" class="btn btn-sm btn-danger" style="height: 65px">
+                                       <textarea rows="3" cols="80" name="msg" style="float: left"></textarea>
+                                       <input type="submit" value="댓글쓰기" class="whitegray_btn" style="height: 65px">
                                     </form>
                                  </td>
                               </tr>
@@ -225,7 +236,7 @@
                         <form method="post" action="../board/reply_insert.do">
                            <input type=hidden name="bno" value="${vo.bno }">
                            <textarea rows="3" cols="80" name="msg" style="float: left"></textarea>&nbsp;
-                           <input type="submit" value="댓글쓰기" class="btn btn-sm btn-danger" style="height: 65px">
+                           <input type="submit" value="댓글쓰기" class="whitegray_btn" style="height: 65px;">
                         </form>
                      </td>
                   </tr>

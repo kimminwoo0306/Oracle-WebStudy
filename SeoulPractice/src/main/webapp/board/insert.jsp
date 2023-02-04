@@ -20,12 +20,13 @@ resize: none;
     <div style="height: 550px">
     <form method="post" action="../board/insert_ok.do" enctype="multipart/form-data">
     	    <table class="table">
-    	<tr>
+    	<!-- <tr>
     		<th width=20% class="text-center">이름</th>
     		<td width=80% align=left>
     		<input type=text name=name size=30 class="input-sm" required>
     		</td>
-    	</tr>
+    		</tr>
+    		-->
     	<tr>
     		<th width=20% class="text-center">제목</th>
     		<td width=80% align=left>
@@ -52,8 +53,8 @@ resize: none;
     	</tr>
     	<tr>
     		<td colspan="2" class="text-center">
-    			<input type=submit value="글쓰기" class="btn btn-sm btn-danger">
-    			<input type=button value="취소" class="btn btn-sm btn-danger" onclick="javascript:history.back()">
+    			<input type=submit value="글쓰기" class="whitegray_btn">
+    			<input type=button value="취소" class="whitegray_btn" onclick="javascript:history.back()">
     		</td>
     	</tr>
     </table>

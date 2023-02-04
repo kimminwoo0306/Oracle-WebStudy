@@ -16,11 +16,14 @@
     <div style="height: 550px">
     	<table class="table">
     		<tr>
+    		<c:if test="${sessionScope.id==null }">
+    		<td><span class="whitegray_btn" style="float:left">글쓰기</span> &nbsp; <span style="margin:0 20px;float:left;line-height:46px;color:gray;">로그인 후 이용 가능합니다</span></td>
+    		</c:if>
+    		<c:if test="${sessionScope.id!=vo.id }">
     			<td>
-    			   <c:if test="${sessionScope.id!=rvo.id }">
-    				<a href="../board/insert.do" class="btn btn-sm btn-danger" style="float:left">새글</a>
-    			   </c:if>
+    				<a href="../board/insert.do" class="whitegray_btn" style="float:left">글쓰기</a>
     			</td>
+    		</c:if>
     		</tr>
     	</table>
     	<table class="table">
@@ -45,7 +48,7 @@
     	 			<sup><img src="../img/new.gif"></sup>
     	 		</c:if>
     	 		</td>
-    	 		<td width="15%" class="text-center">${vo.name }</td>
+    	 		<td width="15%" class="text-center">${vo.id }</td>
     	 		<td width="15%" class="text-center">${vo.dbday }</td>
     	 		<td width="10%" class="text-center">${vo.hit }</td>
     	 		<td width="20%" class="text-center">
@@ -60,9 +63,9 @@
     	<table class="table">
     		<tr>
     			<td class="text-center">
-    				<a href="../board/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">Previous</a>
+    				<a href="../board/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">이전</a>
     				${curpage } page / ${totalpage } pages
-    				<a href="../board/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">Next</a>
+    				<a href="../board/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">다음</a>
     			</td>
     		</tr>
     	</table>

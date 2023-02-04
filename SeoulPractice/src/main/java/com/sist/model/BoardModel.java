@@ -25,8 +25,13 @@ public class BoardModel {
 	         page = "1";
 	      }
 	      int curpage = Integer.parseInt(page);
+	HttpSession session=request.getSession();
+	String id=(String)session.getAttribute("id");
+	BoardVO vo=new BoardVO();
+	vo.setId(id);
 	BoardDAO dao=new BoardDAO();
 	ArrayList<BoardVO> list=dao.boardListData(curpage);
+	
 	int totalpage = dao.boardTotalPage();
     
     final int BLOCK = 10;
@@ -34,6 +39,8 @@ public class BoardModel {
     int endPage = ((curpage-1)/BLOCK * BLOCK) + BLOCK;
     if (endPage > totalpage)
         endPage = totalpage;
+    if (totalpage==0)
+    	totalpage = totalpage+1;
     
     request.setAttribute("list", list);
     request.setAttribute("curpage", curpage);
@@ -46,6 +53,11 @@ public class BoardModel {
 	@RequestMapping("board/insert.do")
 	public String board_insert(HttpServletRequest request, HttpServletResponse response)
 	{
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		BoardVO vo=new BoardVO();
+		vo.setId(id);
+		
 		// 중간에 들어가는 파일을 지정
 		request.setAttribute("main_jsp", "../board/insert.jsp"); // 화면 출력
 		return "../main/main.jsp";
@@ -61,14 +73,18 @@ public class BoardModel {
 			String enctype="UTF-8"; // 한글 파일명
 			MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
 			// 사용자가 보내준 데이터를 받는다
-			String name=mr.getParameter("name");
+			HttpSession session=request.getSession();
+			String id=(String)session.getAttribute("id");
+	//		String id=mr.getParameter("id");
+	//		String name=mr.getParameter("name");
 			String title=mr.getParameter("title");
 			String content=mr.getParameter("content");
 			String pwd=mr.getParameter("pwd");
 			String filename=mr.getFilesystemName("upload");			
 			// BoardVO에 묶어서 오라클 전송
 			BoardVO vo=new BoardVO();
-			vo.setName(name);
+			vo.setId(id);
+	//		vo.setName(name);
 			vo.setTitle(title);
 			vo.setContent(content);
 			vo.setPwd(pwd);
@@ -105,6 +121,8 @@ public class BoardModel {
 		String bno=request.getParameter("bno"); // 상세보기 => 1개만 출력한다. => primary key
 		// DAO로 전송 => 오라클에서 데이터 읽기
 		BoardDAO dao=new BoardDAO();
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
 		BoardVO vo=dao.boardDetailData(Integer.parseInt(bno));
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../board/detail.jsp");
@@ -181,14 +199,14 @@ public class BoardModel {
 			   // 한글 변환
 			   request.setCharacterEncoding("UTF-8");
 		   }catch(Exception ex) {}
-		   String name=request.getParameter("name");
+	//	   String name=request.getParameter("name");
 		   String title=request.getParameter("title");
 		   String content=request.getParameter("content");
 		   String pwd=request.getParameter("pwd");
 		   String bno=request.getParameter("bno");
 		   String moddate=request.getParameter(bno);
 		   BoardVO vo=new BoardVO();
-		   vo.setName(name);
+	//	   vo.setName(name);
 		   vo.setTitle(title);
 		   vo.setContent(content);
 		   vo.setPwd(pwd);
