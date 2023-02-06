@@ -195,4 +195,13 @@ public class ReserveModel {
 	  CommonsModel.footerData(request);
 	  return "../main/main.jsp";  
   }
+  @RequestMapping("reserve/reserve_delete.do")
+  public String reserve_delete(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String rno=request.getParameter("rno");
+	  // DB연동
+	  ReserveDAO dao=new ReserveDAO();
+	  dao.reserveDelete(Integer.parseInt(rno));
+	  return "redirect:../mypage/mypage_reserve.do";
+  }
 }

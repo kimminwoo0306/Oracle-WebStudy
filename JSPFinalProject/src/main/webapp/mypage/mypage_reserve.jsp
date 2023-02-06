@@ -57,7 +57,7 @@ $(function(){
 	         <c:if test="${vo.ok=='n' }">
 	         <span class="btn btn-xs btn-default">예약대기</span>
 	         </c:if>
-	         <a href="../reserve/reserve_delete.do?no=${vo.rno }" class="btn btn-xs btn-warning">취소</a>
+	         <a href="../reserve/reserve_delete.do?rno=${vo.rno }" class="btn btn-xs btn-warning">취소</a>
 	        </td>
 	       </tr>
        </c:forEach>
