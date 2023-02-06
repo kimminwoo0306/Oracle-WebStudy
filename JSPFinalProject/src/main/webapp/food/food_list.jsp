@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,9 @@
   							<td width="30%" class="text-center" rowspan="4">
   								<a href="../food/food_before_detail.do?fno=${fvo.fno }"><img src="${fvo.poster }" style="width:300px" height="160px" class="img-rounded"></a>
   							</td>
-  							<td width="70%"><a href="../food/food_before_detail.do?fno=${fvo.fno }"><h4>${fvo.name }</a>&nbsp;<span style="color:orange">${fvo.score }</span></h4></td>
+  							<td width="70%" class="inline"><a href="../food/food_before_detail.do?fno=${fvo.fno }"><h4>${fvo.name }</a>&nbsp;<span style="color:orange">${fvo.score }</span></h4>
+  							<img src="../food/image/like.png" style="width: 35px; height:30px; padding-right:10px" title="${fvo.count }">
+  							</td>
   						</tr>
   						<tr>
   							<td width=70%>${fvo.address }</td>

@@ -10,14 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sist.dao.*;
 import com.sist.vo.*;
+import com.sist.dao.*;
 // Model => 여기서 요청 처리 메소드를 찾는다
 /*
- *   food/food_location.do => DispatcherServlet
- *                              => service() => @RequestMapping() => 밑에 있는 메소드를 호출한다
- *                                                                     method.invoke()
- *                                                                     Model에 존재   
+ *   food/food_location.do ==> DispatcherServlet
+ *                              => service() => @RequestMapping() => 밑에 있는 메소드를 호출한다 
+ *                                                                   method.invoke()
+ *                                                                       |
+ *                                                                 Model에 존재 <======> DAO
+ *   JSP  ===>  Model  ===> DAO
+ *        <===         <===
+ *   
  */
 @Controller
 public class FoodModel {
@@ -61,6 +65,11 @@ public class FoodModel {
 		FoodDAO dao=new FoodDAO();
 		// 결과값을 얻어서 -> request에 담아준다 ==> rd.forward(request,response)
 		ArrayList<FoodVO> list=dao.foodListData(Integer.parseInt(cno));
+		LikeDAO ldao=new LikeDAO();
+		for(FoodVO fvo:list)
+		{
+			fvo.setCount(ldao.foodLikeCount(fvo.getFno()));
+		}
 		request.setAttribute("list", list);
 		CategoryVO vo=dao.categoryInfoData(Integer.parseInt(cno));
 		request.setAttribute("vo", vo);
@@ -127,6 +136,20 @@ public class FoodModel {
 		}
 		List<RecipeVO> nList=dao.food_recipe_data(type);
 		request.setAttribute("nList1", nList); // commonsModel에 있는 nList와 겹치므로 이름을 다르게
+		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		JjimDAO jdao=new JjimDAO();
+		int jcount=jdao.jjimCount(Integer.parseInt(fno), id);
+		request.setAttribute("jjim_count", jcount);
+		
+		LikeDAO ldao=new LikeDAO();
+		int mc=ldao.myLikeCount(Integer.parseInt(fno), id);
+		//int tc=ldao.likeCount();
+		int tc=ldao.foodLikeCount(Integer.parseInt(fno));
+		
+		request.setAttribute("like_count", mc);
+		request.setAttribute("like_total", tc);
 		CommonsModel.footerData(request);
 		return "../main/main.jsp";
 	}
