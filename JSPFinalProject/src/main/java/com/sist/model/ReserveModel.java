@@ -143,6 +143,10 @@ public class ReserveModel {
 			OK                  CHAR(1)         'n'
 			REGDATE             DATE          SYSDATE
 	   */
+	  try
+	  {
+		  request.setCharacterEncoding("UTF-8");
+	  }catch(Exception ex) {}
 	  String fno=request.getParameter("fno");
 	  String rdate=request.getParameter("reserveday");
 	  String rtime=request.getParameter("reservetime");
@@ -164,13 +168,31 @@ public class ReserveModel {
 	  
 	  //dao 연동
 	  ReserveDAO dao=new ReserveDAO();
-	  
-	  return "redirect:../mypage/reserve.do";
+	  dao.reserveOk(vo);
+	  return "redirect:../mypage/mypage_reserve.do";
   }
-  @RequestMapping("mypage/reserve.do")
+  @RequestMapping("mypage/mypage_reserve.do")
   public String mypage_reserve(HttpServletRequest request,HttpServletResponse response)
   {
-	  
+	  HttpSession session=request.getSession();
+	  String id=(String)session.getAttribute("id");
+	  ReserveDAO dao=new ReserveDAO();
+	  List<ReserveVO> list=dao.reserveMyPageData(id);
+	  request.setAttribute("list", list);
+	  request.setAttribute("mypage_jsp", "../mypage/mypage_reserve.jsp");
+	  request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");
+	  CommonsModel.footerData(request);
 	  return "../main/main.jsp";
+  }
+  @RequestMapping("adminpage/admin_reserve.do")
+  public String admin_reserve(HttpServletRequest request,HttpServletResponse response)
+  {
+	  ReserveDAO dao=new ReserveDAO();
+	  List<ReserveVO> list=dao.reserveAdminPageData();
+	  request.setAttribute("list", list);
+	  request.setAttribute("admin_jsp", "../adminpage/admin_reserve.jsp");
+	  request.setAttribute("main_jsp", "../adminpage/admin_main.jsp");
+	  CommonsModel.footerData(request);
+	  return "../main/main.jsp";  
   }
 }

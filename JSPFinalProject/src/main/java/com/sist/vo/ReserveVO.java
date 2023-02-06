@@ -15,6 +15,14 @@ public class ReserveVO {
 	private int rno,fno,inwon;
 	private String id,rdate,rtime,reserve_no,ok;
 	private Date regdate;
+	private FoodVO fvo=new FoodVO();
+	
+	public FoodVO getFvo() {
+		return fvo;
+	}
+	public void setFvo(FoodVO fvo) {
+		this.fvo = fvo;
+	}
 	public int getRno() {
 		return rno;
 	}
