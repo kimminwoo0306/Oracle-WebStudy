@@ -1,36 +1,5 @@
 package com.sist.model;
 
-<<<<<<< HEAD
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.sist.controller.Controller;
-import com.sist.controller.RequestMapping;
-import com.sist.dao.*;
-import com.sist.vo.LikeVO;
-
-@Controller
-public class LikeModel {
-	@RequestMapping("like/like_insert.do")
-	public String like_insert(HttpServletRequest request, HttpServletResponse response)
-	{
-		String fno=request.getParameter("fno");
-		HttpSession session=request.getSession();
-		String id=(String)session.getAttribute("id");
-		LikeVO vo=new LikeVO();
-		vo.setNo(Integer.parseInt(fno));
-		vo.setId(id);
-		LikeDAO dao=new LikeDAO();
-		dao.likeInsert(vo);
-		return "redirect:../food/food_detail.do?fno="+fno;
-
-	}
-}
-package com.sist.model;
-
-=======
->>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 import java.net.http.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;

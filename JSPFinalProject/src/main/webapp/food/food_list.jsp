@@ -22,40 +22,6 @@
   </div>
 </div>
 <div class="wrapper row3">
-<<<<<<< HEAD
-  <main class="container clear">
-  	<div class="jumbotron">
-  		<h3 class="text-center">${vo.title }</h3>
-  		<h4 class="text-center">${vo.subject }</h4>
-  	</div>
-  	<table class="table">
-  		<tr>
-  			<td>
-  				<c:forEach var="fvo" items="${list }">
-  					<table class="table">
-  						<tr>
-  							<td width="30%" class="text-center" rowspan="4">
-  								<a href="../food/food_before_detail.do?fno=${fvo.fno }"><img src="${fvo.poster }" style="width:300px" height="160px" class="img-rounded"></a>
-  							</td>
-  							<td width="70%" class="inline"><a href="../food/food_before_detail.do?fno=${fvo.fno }"><h4>${fvo.name }</a>&nbsp;<span style="color:orange">${fvo.score }</span></h4>
-  							<img src="../food/image/like.png" style="width: 35px; height:30px; padding-right:10px" title="${fvo.count }">
-  							</td>
-  						</tr>
-  						<tr>
-  							<td width=70%>${fvo.address }</td>
-  						</tr>
-  						<tr>
-  							<td width=70%>${fvo.tel }</td>
-  						</tr>
-  						<tr>
-  							<td width=70%>${fvo.type }</td>
-  						</tr>
-  					</table>
-  				</c:forEach>
-  			</td>
-  		</tr>
-  	</table>
-=======
   <main class="container clear"> 
     <div class="jumbotron">
       <h3 class="text-center">${vo.title }</h3>
@@ -88,7 +54,6 @@
         </td>
       </tr>
     </table>
->>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
   </main>
 </div>
 </body>

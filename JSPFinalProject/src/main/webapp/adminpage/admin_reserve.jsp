@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,10 +36,10 @@
 	        <td class="text-center">${vo.inwon }</td>
 	        <td class="text-center">
 	         <c:if test="${vo.ok=='n' }">
-	         <a href="../adminpage/admin_reserve_ok.do?rno=${vo.rno }" class="btn btn-xs btn-success">승인대기</a>
+	          <a href="../adminpage/admin_reserve_ok.do?rno=${vo.rno }" class="btn btn-xs btn-success">승인대기</a>
 	         </c:if>
 	         <c:if test="${vo.ok=='y' }">
-	         <span class="btn btn-xs btn-default">승인완료</span>
+	          <span class="btn btn-xs btn-default">승인완료</span>
 	         </c:if>
 	        </td>
 	       </tr>

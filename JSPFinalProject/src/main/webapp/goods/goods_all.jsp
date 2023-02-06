@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,12 +32,12 @@
       <div id="gallery">
         <figure>
           <header class="heading">
-            <h2 class="sectiontitle">전체 상품 목록</h2>
+           <h2 class="sectiontitle">전체 상품 목록</h2>
           </header>
           <ul class="nospace clear">
-          	<c:forEach var="vo" items="${list }" varStatus="s">
-            <li class="one_quarter ${s.index%4==0?'first':'' }"><a href="../goods/goods_detail.do?no=${vo.no }"><img src="${vo.goods_poster }" title="${vo.goods_name }"></a></li>
-            </c:forEach>            
+           <c:forEach var="vo" items="${list }" varStatus="s">
+             <li class="one_quarter ${s.index%4==0?'first':'' }"><a href="../goods/goods_detail.do?no=${vo.no }"><img src="${vo.goods_poster }" title="${vo.goods_name }"></a></li>
+           </c:forEach>
           </ul>
           <figcaption></figcaption>
         </figure>
@@ -47,15 +47,15 @@
       <!-- class="current" -->
       <nav class="pagination">
         <ul>
-        <c:if test="${startPage>1 }">
+         <c:if test="${startPage>1 }">
           <li><a href="../goods/goods_all.do?page=${startPage-1 }">&laquo; Previous</a></li>
-        </c:if>
+         </c:if>
           <c:forEach var="i" begin="${startPage }" end="${endPage }">
-         	 <li ${i==curpage?"class=current":"" }><a href="../goods/goods_all.do?page=${i }">${i }</a></li>          
+            <li ${i==curpage?"class=current":"" }><a href="../goods/goods_all.do?page=${i }">${i }</a></li>
           </c:forEach>
-          <c:if test="${endPage<totalpage }">
-        	  <li><a href="../goods/goods_all.do?page=${endPage+1 }">Next &raquo;</a></li>
-          </c:if>
+         <c:if test="${endPage<totalpage }">
+          <li><a href="../goods/goods_all.do?page=${endPage+1 }">Next &raquo;</a></li>
+         </c:if>
         </ul>
       </nav>
       <!-- ################################################################################################ --> 

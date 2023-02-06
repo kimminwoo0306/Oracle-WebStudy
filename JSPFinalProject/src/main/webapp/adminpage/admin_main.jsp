@@ -21,12 +21,12 @@
   <main class="container clear"> 
     <!-- main body --> 
     <div class="sidebar one_quarter first"> 
-      <h6>${sessionScope.name } 님 관리페이지</h6>
-		<%-- 메뉴 --%> 
-		<jsp:include page="../adminpage/admin_menu.jsp"></jsp:include>
+      <h6>${sessionScope.name } 님의 관리페이지</h6>
+      <%-- 메뉴 --%>
+      <jsp:include page="../adminpage/admin_menu.jsp"></jsp:include>
     </div>
     <div class="content three_quarter"> 
-       <jsp:include page="${admin_jsp }"></jsp:include>
+      <jsp:include page="${admin_jsp }"></jsp:include>
     </div>
     <!-- / main body -->
     <div class="clear"></div>

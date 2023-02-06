@@ -17,11 +17,11 @@
       <th width=15% class="text-right">구분</th>
       <td width=80%>
         <select name="type" class="input-sm">
-          <option value="1" ${vo.type == 1? "selected" : "" }>일반공지</option>
-          <option value="2" ${vo.type == 2? "selected" : "" }>이벤트공지</option>
-          <option value="3" ${vo.type == 3? "selected" : "" }>맛집공지</option>
-          <option value="4" ${vo.type == 4? "selected" : "" }>여행공지</option>
-          <option value="5" ${vo.type == 5? "selected" : "" }>상품공지</option>
+          <option value="1" ${vo.type==1?"selected":"" }>일반공지</option>
+          <option value="2" ${vo.type==2?"selected":"" }>이벤트공지</option>
+          <option value="3" ${vo.type==3?"selected":"" }>맛집공지</option>
+          <option value="4" ${vo.type==4?"selected":"" }>여행공지</option>
+          <option value="5" ${vo.type==5?"selected":"" }>상품공지</option>
         </select>
       </td>
     </tr>
@@ -29,7 +29,7 @@
       <th width=15% class="text-right">이름</th>
       <td width=80%>
         <input type=text name=name size=20 class="input-sm" readonly value="관리자">
-        <input type="hidden" name=no value="${vo.no }">
+        <input type=hidden name=no value="${vo.no }">
       </td>
     </tr>
     <tr>

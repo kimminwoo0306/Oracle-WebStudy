@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +24,15 @@
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ -->
-<!-- private int no, goods_discount,hit,account;
-	private String goods_name, goods_sub, goods_price,goods_first_price,goods_delivery,goods_poster; -->
+<!-- 
+   private int no,goods_discount,hit,account;
+    private String goods_name,goods_sub,goods_price,goods_first_price,goods_delivery,goods_poster;
+ -->
 <div class="wrapper row3">
   <main class="container clear">
-    <h2 class="sectiontitle">상품 상세보기</h2>
-    <div style="height: 5px"></div>
-    <table class="table">
+   <h2 class="sectiontitle">상품 상세보기</h2>
+   <div style="height: 5px"></div>
+   <table class="table">
      <tr>
        <td width=30% class="text-center" rowspan="6">
          <img src="${vo.goods_poster }" style="width:100%">
@@ -41,18 +43,18 @@
        </td>
      </tr>
      <tr>
-       <td colspan="2"><h3><span style="color:magenta">${vo.goods_discount }%</span>&nbsp;${vo.goods_price }</h3></td>
+       <td colspan="2"><h3><span style="color:magenta">${vo.goods_discount }%</span>&nbsp;${vo.goods_price }원</h3></td>
      </tr>
      <tr>
-       <td colspan="2" class="inline"><h3><span style="color:green">첫구매할인가</span>&nbsp;</h3>${vo.goods_first_price }</td>
+       <td colspan="2" class="inline"><span style="color:green">첫구매할인가</span>&nbsp;<h3>${vo.goods_first_price }</h3></td>
      </tr>
      <tr>
-       <td width="20%">배송</td>
-       <td width="80%">${vo.goods_delivery }</td>
+       <td width=20%>배송</td>
+       <td width=80%>${vo.goods_delivery }</td>
      </tr>
      <tr>
-       <td colspan="2" class="text-center inline" >
-        수량:
+       <td colspan="2" class="text-center inline">
+         수량:
          <select name="account" class="input-sm">
            <c:forEach var="i" begin="1" end="${vo.account }">
              <option>${i }개</option>
@@ -62,28 +64,12 @@
      </tr>
      <tr>
        <td colspan="2" class="text-center">
-         <input type="button" value="장바구니" class="btn btn-lg btn-success">
-         <input type="button" value="구매하기" class="btn btn-lg btn-danger">
+         <input type=button value="장바구니" class="btn btn-lg btn-success">
+         <input type=button value="구매하기" class="btn btn-lg btn-danger">
        </td>
      </tr>
-    </table>
+   </table>
+  </main>
+</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

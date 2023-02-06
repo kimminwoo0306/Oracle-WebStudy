@@ -1,15 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-=======
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -39,6 +29,5 @@ $(function(){
   <c:forEach var="time" items="${rtime }">
     <span class="btn btn-sm btn-success times">${time}</span>&nbsp;
   </c:forEach>
->>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 </body>
 </html>

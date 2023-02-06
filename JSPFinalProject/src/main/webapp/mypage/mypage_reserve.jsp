@@ -11,14 +11,14 @@
 <script type="text/javascript">
 $(function(){
 	$('.infos').click(function(){
-		let rno=$(this).attr("data-rno")
+		let rno=$(this).attr("data-rno");
 		$.ajax({
 			type:'get',
 			url:'../mypage/mypage_reserve_info.do',
 			data:{"rno":rno},
 			success:function(response)
 			{
-				$('#reserve_info').html(response)
+				$('#reserve_info').html(response);
 			}
 		})
 	})
@@ -52,10 +52,10 @@ $(function(){
 	        <td class="text-center">${vo.inwon }</td>
 	        <td class="text-center">
 	         <c:if test="${vo.ok=='y' }">
-	         <span class="btn btn-xs btn-success infos" data-rno="${vo.rno }">예약완료</span>
+	          <span class="btn btn-xs btn-success infos" data-rno="${vo.rno }">예약완료</span>
 	         </c:if>
 	         <c:if test="${vo.ok=='n' }">
-	         <span class="btn btn-xs btn-default">예약대기</span>
+	          <span class="btn btn-xs btn-default">예약대기</span>
 	         </c:if>
 	         <a href="../reserve/reserve_delete.do?rno=${vo.rno }" class="btn btn-xs btn-warning">취소</a>
 	        </td>
@@ -64,7 +64,7 @@ $(function(){
      </table>
      <div style="height: 10px"></div>
      <div id="reserve_info">
-       
+     
      </div>
     </main>
   </div>

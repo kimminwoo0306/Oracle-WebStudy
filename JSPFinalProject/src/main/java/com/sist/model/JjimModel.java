@@ -11,39 +11,6 @@ import com.sist.vo.JjimVO;
 
 @Controller
 public class JjimModel {
-<<<<<<< HEAD
-	@RequestMapping("jjim/jjim_insert.do")
-	public String jjim_insert(HttpServletRequest request, HttpServletResponse response)
-	{
-		String fno=request.getParameter("fno");
-		HttpSession session=request.getSession();
-		String id=(String)session.getAttribute("id");
-		JjimVO vo=new JjimVO();
-		vo.setNo(Integer.parseInt(fno));
-		vo.setId(id);
-		// 데이터베이스 연동
-		JjimDAO dao=new JjimDAO();
-		dao.jjimInsert(vo);
-		
-		return "redirect:../food/food_detail.do?fno="+fno;
-	}
-
-}
-package com.sist.model;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.sist.controller.Controller;
-import com.sist.controller.RequestMapping;
-import com.sist.dao.JjimDAO;
-import com.sist.vo.JjimVO;
-
-@Controller
-public class JjimModel {
-=======
->>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
    @RequestMapping("jjim/jjim_insert.do")
    public String jjim_insert(HttpServletRequest request,HttpServletResponse response)
    {
