@@ -1,6 +1,7 @@
 package com.sist.vo;
 
 public class LikeVO {
+<<<<<<< HEAD
 	private int lno, no;
 	private String id;
 	public int getLno() {
@@ -26,6 +27,8 @@ public class LikeVO {
 package com.sist.vo;
 
 public class LikeVO {
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
     private int lno,no;
     private String id;
 	public int getLno() {

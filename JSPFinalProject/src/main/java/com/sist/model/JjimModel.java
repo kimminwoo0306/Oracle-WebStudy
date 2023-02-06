@@ -11,6 +11,7 @@ import com.sist.vo.JjimVO;
 
 @Controller
 public class JjimModel {
+<<<<<<< HEAD
 	@RequestMapping("jjim/jjim_insert.do")
 	public String jjim_insert(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -41,6 +42,8 @@ import com.sist.vo.JjimVO;
 
 @Controller
 public class JjimModel {
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
    @RequestMapping("jjim/jjim_insert.do")
    public String jjim_insert(HttpServletRequest request,HttpServletResponse response)
    {

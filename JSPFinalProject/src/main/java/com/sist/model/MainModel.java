@@ -44,7 +44,7 @@ public class MainModel {
 					if(cookies[i].getName().startsWith("guest_food"))
 					{
 						String fno=cookies[i].getValue();
-						FoodVO vo=dao.food_Detail(Integer.parseInt(fno));
+						FoodVO vo=dao.food_detail(Integer.parseInt(fno));
 						cList.add(vo);
 					}
 				}
@@ -56,7 +56,7 @@ public class MainModel {
 					if(cookies[i].getName().startsWith(id+"_food"))
 					{
 						String fno=cookies[i].getValue();
-						FoodVO vo=dao.food_Detail(Integer.parseInt(fno));
+						FoodVO vo=dao.food_detail(Integer.parseInt(fno));
 						cList.add(vo);
 					}
 				}

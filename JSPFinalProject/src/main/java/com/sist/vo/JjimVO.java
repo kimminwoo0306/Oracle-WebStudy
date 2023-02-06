@@ -1,4 +1,5 @@
 package com.sist.vo;
+<<<<<<< HEAD
 
 public class JjimVO {
 	private int jno, no;
@@ -48,6 +49,8 @@ public class JjimVO {
 	
 }
 package com.sist.vo;
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 /*
  *   LNO NOT NULL NUMBER       
      NO           NUMBER       

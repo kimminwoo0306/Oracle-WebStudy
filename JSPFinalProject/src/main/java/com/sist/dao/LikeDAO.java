@@ -3,6 +3,7 @@ import java.util.*;
 import java.sql.*;
 import com.sist.vo.*;
 public class LikeDAO {
+<<<<<<< HEAD
 	private Connection conn;
 	private PreparedStatement ps;
 	///// 마지막
@@ -116,6 +117,8 @@ import java.util.*;
 import java.sql.*;
 import com.sist.vo.*;
 public class LikeDAO {
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
    private Connection conn;
    private PreparedStatement ps;
    //////////////  마지막 

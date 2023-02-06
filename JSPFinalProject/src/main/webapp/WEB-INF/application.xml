@@ -12,10 +12,15 @@
 	<bean class="com.sist.model.MyPageModel"/>
 	<bean class="com.sist.model.AdminModel"/>
 	<bean class="com.sist.model.NoticeModel"/>
+<<<<<<< HEAD
 	<bean class="com.sist.model.JjimModel"/>
 	<bean class="com.sist.model.LikeModel"/>
 	<bean class="com.sist.model.ReserveModel"/>
 	<!-- 
 	   <component-scan base-package="com.sist.model"/>
 	 -->
+=======
+	<bean class="com.sist.model.ReserveModel"/>
+	<bean class="com.sist.model.JjimModel"/>
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 </beans>

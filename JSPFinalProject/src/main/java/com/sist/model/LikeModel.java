@@ -1,5 +1,6 @@
 package com.sist.model;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,8 @@ public class LikeModel {
 }
 package com.sist.model;
 
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 import java.net.http.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;

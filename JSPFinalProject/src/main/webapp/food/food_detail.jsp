@@ -110,6 +110,7 @@ $(function(){
               <c:if test="${like_count!=0 }">
                <span class="btn btn-xs btn-default">좋아요(${like_total })</span>
               </c:if>
+<<<<<<< HEAD
               <c:if test="${jjim_count==0 }">
               <a href="../jjim/jjim_insert.do?fno=${vo.fno }" class="btn btn-xs btn-success">찜하기</a>
               </c:if>
@@ -122,6 +123,8 @@ $(function(){
               <c:if test="${like_count!=0 }">
                <span class="btn btn-xs btn-default">좋아요(${like_total })</span>
               </c:if>
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
               
               <c:if test="${jjim_count==0 }">
                <a href="../jjim/jjim_insert.do?fno=${vo.fno }" class="btn btn-xs btn-success">찜하기</a>

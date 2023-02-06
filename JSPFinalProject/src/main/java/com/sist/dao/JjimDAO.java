@@ -1,5 +1,6 @@
 package com.sist.dao;
 import java.util.*;
+<<<<<<< HEAD
 import java.sql.*;
 import com.sist.vo.*;
 public class JjimDAO {
@@ -130,6 +131,8 @@ public class JjimDAO {
 }
 package com.sist.dao;
 import java.util.*;
+=======
+>>>>>>> branch 'main' of https://github.com/kimminwoo0306/Oracle-WebStudy.git
 import com.sist.vo.*;
 import java.sql.*;
 public class JjimDAO {
