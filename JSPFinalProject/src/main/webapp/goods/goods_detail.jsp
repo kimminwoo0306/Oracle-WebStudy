@@ -7,6 +7,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#account_select').change(function(){
+		let price=$(this).attr("data-price");
+		let temp=price.replace("원","");
+		temp=temp.replace(",","")
+		console.log(temp)
+		let count=$(this).val();
+		let total=Number(count)*Number(temp);
+		console.log("가격:"+price);
+		console.log("수량:"+count)
+		$('#total_price').text(total+"원");
+		$('#goods_account').val(count)
+		$("#goods_total").val(total)
+		
+	})
+})
+</script>
+<!-- 
+    VueJS
+      <script>
+       new Vue({
+       })
+      </script>
+     ReactJS
+      <script>
+        function aaa()
+        {
+        }
+      </script>
+ -->
 </head>
 <body>
 <div class="wrapper row3">
@@ -55,19 +87,28 @@
      <tr>
        <td colspan="2" class="text-center inline">
          수량:
-         <select name="account" class="input-sm">
+         <select name="account" class="input-sm" data-price="${vo.goods_price }" id="account_select">
            <c:forEach var="i" begin="1" end="${vo.account }">
-             <option>${i }개</option>
+             <option value="${i }">${i }개</option> 
            </c:forEach>
          </select>
+         &nbsp;
+         <h3 style="color:blue" id="total_price"></h3>
        </td>
      </tr>
+     <c:if test="${sessionScope.id!=null }">
      <tr>
        <td colspan="2" class="text-center">
-         <input type=button value="장바구니" class="btn btn-lg btn-success">
+        <form method="post" action="../goods/cart_insert.do">
+         <input type="hidden" name=no id="goods_no" value="${vo.no }">
+         <input type="hidden" name=account id="goods_account">
+         <input type="hidden" name=total id="goods_total">
+         <input type=submit value="장바구니" class="btn btn-lg btn-success">
+        </form>
          <input type=button value="구매하기" class="btn btn-lg btn-danger">
        </td>
      </tr>
+     </c:if>
    </table>
   </main>
 </div>
