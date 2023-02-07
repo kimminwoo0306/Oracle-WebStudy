@@ -50,21 +50,21 @@ margin:60px 0;
     	 <%--
     	 		for(FreeBoardVO vo:request.getAttribute("list"));
     	  --%>
-    	 <c:forEach var="vo" items="${list }"> <%-- request.setAttribute("list", list)  => request.getAttribute("list") == ${list }--%>
+    	 <c:forEach var="find" items="${list }"> <%-- request.setAttribute("list", list)  => request.getAttribute("list") == ${list }--%>
     	 	<tr>
-    	 		<td width="10%" class="text-center">${vo.bno }</td> <%-- vo.getNo() --%>
+    	 		<td width="10%" class="text-center">${find.bno }</td> <%-- vo.getNo() --%>
     	 		<td width="30%" style="color: black">
     	 		
-    	 		<a href="../board/detail.do?bno=${vo.bno }"style="color: black">${vo.title }</a> &nbsp;
-    	 		<c:if test="${vo.dbday==today }">
+    	 		<a href="../board/detail.do?bno=${find.bno }"style="color: black">${find.title }</a> &nbsp;
+    	 		<c:if test="${find.dbday==today }">
     	 			<sup><img src="../img/new.gif"></sup>
     	 		</c:if>
     	 		</td>
-    	 		<td width="15%" class="text-center">${vo.id }</td>
-    	 		<td width="15%" class="text-center">${vo.dbday }</td>
-    	 		<td width="10%" class="text-center">${vo.hit }</td>
+    	 		<td width="15%" class="text-center">${find.id }</td>
+    	 		<td width="15%" class="text-center">${find.dbday }</td>
+    	 		<td width="10%" class="text-center">${find.hit }</td>
     	 		<td width="20%" class="text-center">
-    	 			<c:if test="${vo.filesize>0 }">
+    	 			<c:if test="${find.filesize>0 }">
     	 				<img src="../img/file.png" style="width:20px;height:20px" class="img-circle">
     	 			</c:if>
     	 		</td>
@@ -75,19 +75,19 @@ margin:60px 0;
     	<table class="table" height="60px;">
     		<tr>
     			<td class="text-center">
-    				<a href="../board/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm" style="background-color:#004fff;">이전</a>
+    				<a href="../board/find.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm" style="background-color:#004fff;">이전</a>
     				${curpage } 페이지 / ${totalpage } 페이지
-    				<a href="../board/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm" style="background-color:#004fff;">다음</a>
+    				<a href="../board/find.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm" style="background-color:#004fff;">다음</a>
     			</td>
     		</tr>
     	</table>
     	
-    	<div class="search-box">
+    	 <div class="search-box">
 			  <form action="../board/find.do" method="post">
 			  <table style="margin-left:auto;margin-right:auto;">
 			   <tr>
 			    <td style="margin:10px">
-			  	<select class="form-control" name="field">
+			  	<select class="form-control" name="searchField">
 					<option value="0">선택</option>
 					<option value="b_title">제목</option>
 				</select>

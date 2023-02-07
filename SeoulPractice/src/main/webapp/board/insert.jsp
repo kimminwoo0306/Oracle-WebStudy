@@ -40,7 +40,7 @@ resize: none;
     		</td>
     	</tr>
     	<tr>
-			<th width=20% class="text-center success">첨부파일</th>
+			<th width=20% class="text-center">첨부파일</th>
 				<td width=80% align=left>
 					<input type=file name=upload size=20 class="input-sm">
 				</td>

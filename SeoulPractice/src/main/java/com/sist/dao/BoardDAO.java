@@ -3,6 +3,8 @@ package com.sist.dao;
 import java.util.*;
 import com.sist.vo.*;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 import java.sql.*;
 
 public class BoardDAO {
@@ -55,6 +57,49 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	// 검색
+	public List<BoardVO> boardFindData(int page, String ss)//int page
+	   {
+		   List<BoardVO> list=new ArrayList<BoardVO>();
+		   try
+		   {
+			   conn=CreateConnection.getConnection();
+			   String sql="SELECT id,bno, title, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
+					     +"FROM (SELECT id,bno, title, regdate, hit,filesize, rownum as num "
+					     +"FROM (SELECT id,bno, title, regdate, hit,filesize "
+					     +"FROM gg_board_4 ORDER BY bno DESC "
+					     +"WHERE title LIKE '%'||?||'%')) "
+					     +"WHERE num BETWEEN ? AND ?";
+			   conn.prepareStatement(sql);
+			   int rowSize = 10;
+			   int start = (page*rowSize) - (rowSize-1); // 1, 11, 21 ...
+			   int end = page * rowSize; // 10, 20, 30
+			   ps.setString(1, ss);
+			   ps.setInt(2, start);
+			   ps.setInt(3, end);
+			   ResultSet rs=ps.executeQuery();
+			   while(rs.next())
+			   {
+				   BoardVO vo=new BoardVO();
+				   vo.setId(rs.getString(1));
+				   vo.setBno(rs.getInt(2));
+				   vo.setTitle(rs.getString(3));
+				   vo.setDbday(rs.getString(4));
+				   vo.setHit(rs.getInt(5));
+				   vo.setFilesize(rs.getInt(6));
+				   list.add(vo);
+			   }
+			   rs.close();
+		   }catch(Exception ex)
+		   {
+			   ex.printStackTrace();   
+		   }
+		   finally
+		   {
+			   CreateConnection.disConnection(conn, ps);
+		   }
+		   return list;
+	   }
 	// 총페이지 가지고 온다
 	// JSP(Model1) ==> MV패턴 ==> MVC패턴 (프로젝트 코드)
 	// M(Model) V(View) => 자바 / HTML
@@ -476,6 +521,6 @@ public class BoardDAO {
 				   CreateConnection.disConnection(conn, ps);
 			   }catch(Exception ex) {}
 		   }
-	   }
+	   } 
 	
 }

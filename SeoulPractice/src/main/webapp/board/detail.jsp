@@ -176,7 +176,7 @@ resize: none;
                         <c:forEach var="rvo" items="${list }">
                            <table class="table">
                               <tr>
-                                 <td class="text-left">
+                                 <td class="text-left" width=80%>
                                   <c:if test="${rvo.group_tab > 0 }">
                                      <c:forEach var="i" begin="1" end="${rvo.group_tab }">
                                         &nbsp;&nbsp;
@@ -186,7 +186,7 @@ resize: none;
                                  <img src="../img/user.jpg"><span style="color:orange">${rvo.name }</span>&nbsp;(${rvo.dbday })
                                  <pre style="white-space: pre-wrap; background-color: white; border: none;">${rvo.msg }</pre>
                                  </td>
-                                 <td class="text-right">
+                                 <td class="text-right" width=20%>
                                     <c:if test="${sessionScope.id != null }">
                                        <c:if test="${sessionScope.id == rvo.id }">
                                           <span class="whitegray_btn ups" data-no="${rvo.rno }">수정</span>
