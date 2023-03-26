@@ -72,7 +72,6 @@ public class BoardModel {
 			int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
 			String enctype="UTF-8"; // 한글 파일명
 			MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
-			// 사용자가 보내준 데이터를 받는다
 			HttpSession session=request.getSession();
 			String id=(String)session.getAttribute("id");
 	//		String id=mr.getParameter("id");
@@ -81,7 +80,6 @@ public class BoardModel {
 			String content=mr.getParameter("content");
 			String pwd=mr.getParameter("pwd");
 			String filename=mr.getFilesystemName("upload");			
-			// BoardVO에 묶어서 오라클 전송
 			BoardVO vo=new BoardVO();
 			vo.setId(id);
 	//		vo.setName(name);
@@ -107,19 +105,11 @@ public class BoardModel {
 		}
 		// 화면 이동
 		return "redirect:list.do"; // sendRedirect("../board/list.do")
-		/*
-		 * insert  => list.do
-		 * update  => detail.do
-		 * delete  => list.do
-		 */
 	}
 	@RequestMapping("board/detail.do")
 	public String board_detail(HttpServletRequest request, HttpServletResponse response)
 	{
-		// 출력에 필요한 데이터 전송
-		// 사용자 요청한 데이터를 받아서 처리 => 게시물 번호
 		String bno=request.getParameter("bno"); // 상세보기 => 1개만 출력한다. => primary key
-		// DAO로 전송 => 오라클에서 데이터 읽기
 		BoardDAO dao=new BoardDAO();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
@@ -165,21 +155,6 @@ public class BoardModel {
 		return "../board/update_ok.jsp"; // delete파일 대신 ${msg}잇는 파일에 적용
 	}
 
-	/*
-	 * @RequestMapping("board/delete_ok.do") public String
-	 * board_delete_ok(HttpServletRequest request, HttpServletResponse response) {
-	 * String bno=request.getParameter("bno"); String
-	 * pwd=request.getParameter("pwd");
-	 * 
-	 * BoardDAO dao=new BoardDAO(); BoardVO
-	 * vo=dao.boardInfoData(Integer.parseInt(bno)); boolean
-	 * bCheck=dao.boardDelete(Integer.parseInt(bno), pwd); if(bCheck==true) { // 파일
-	 * 삭제 if(vo.getFilesize()>0) // 파일 존재하면 파일 삭제 { try { File file=new
-	 * File("c:\\download\\"+vo.getFilename()); file.delete(); }catch(Exception ex)
-	 * {} } else {
-	 * 
-	 * } } return "redirect:list.do"; }
-	 */
 	@RequestMapping("board/update.do")
 	public String board_update(HttpServletRequest request, HttpServletResponse response)
 	   {
@@ -196,7 +171,6 @@ public class BoardModel {
 	   {
 		   try
 		   {
-			   // 한글 변환
 			   request.setCharacterEncoding("UTF-8");
 		   }catch(Exception ex) {}
 	//	   String name=request.getParameter("name");
@@ -278,7 +252,6 @@ public class BoardModel {
 		vo.setName(name);
 		vo.setMsg(msg);
 		BoardDAO dao=new BoardDAO();
-		// 답변 => 메소드 호출
 		dao.replyReplyInsert(Integer.parseInt(pno), vo);
 		return "redirect:detail.do?bno="+bno;
 	}
@@ -288,7 +261,6 @@ public class BoardModel {
 		String rno=request.getParameter("rno");
 		String bno=request.getParameter("bno");
 		BoardDAO dao=new BoardDAO();
-		// 삭제처리
 		dao.replyDelete(Integer.parseInt(rno));
 		return "redirect:detail.do?bno="+bno;
 	}

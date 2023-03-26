@@ -198,7 +198,6 @@ public class MyPageModel {
 	   request.setAttribute("vo", vo);
 	   return "../mypage/mypage_reserve_info.jsp";
    }
-   /////////////////////////////////////////////////////////////////////////////////////////
    @RequestMapping("mypage/board_list.do")
    public String my_board_list(HttpServletRequest request,HttpServletResponse response)
    {
@@ -261,12 +260,10 @@ public class MyPageModel {
 
 		   return "redirect:board_list.do";
 	   }
-	//adminpage/board_delete.do
 	@RequestMapping("mypage/board_delete.do")
 	  public String admin_board_delete(HttpServletRequest request,HttpServletResponse response)
 	  {
 		  String no=request.getParameter("no");
-		  //DAO연동 
 		  BoardDAO dao=new BoardDAO();
 		  dao.ad_boardDelete(Integer.parseInt(no));
 		  return "redirect:board_list.do";
@@ -280,8 +277,6 @@ public class MyPageModel {
 		  String email=request.getParameter("email");
 		  
 		  MemberDAO dao=new MemberDAO();
-		  
-		  //dao.pwd_chage(email, pwd, new_pwd, id);
 		  
 		  
 		  request.setAttribute("main_jsp", "../mypage/mypage_main.jsp");

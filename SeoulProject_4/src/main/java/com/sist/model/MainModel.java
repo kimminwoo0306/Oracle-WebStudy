@@ -38,7 +38,6 @@ public class MainModel {
       List<FestivalVO> fslist = tdao.festivalListData();
       request.setAttribute("fslist", fslist);
       
-      // main 본문에 include할 jsp파일
       request.setAttribute("main_jsp", "../main/home.jsp");// main.jsp
       
       // cookie 전송 - 여행지

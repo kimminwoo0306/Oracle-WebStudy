@@ -122,20 +122,7 @@ public class ReserveDAO {
   		return times;
   		
   	}
-	////////////////////////////////////////////////////////////////////////////////////////
-	/*
-	 * FRNO    NOT NULL NUMBER         
-	FNO              NUMBER         
-	ID               VARCHAR2(20)   
-	RNO     NOT NULL VARCHAR2(20)   
-	RDATE   NOT NULL VARCHAR2(100)  
-	RTIME   NOT NULL VARCHAR2(100)  
-	INWON            NUMBER         
-	MSG              VARCHAR2(1000) 
-	OK               CHAR(10)       
-	REGDATE          DATE           
 
-	 */
 	public void reserveOk(ReserveVO vo)
     {
        try
@@ -161,41 +148,7 @@ public class ReserveDAO {
        }
     }
     
-    // 예약 정보를 마이페이지에서 읽기
-    /*
-     * gg_foodReserve_4
-     * FRNO    NOT NULL NUMBER         
-     FNO              NUMBER         
-     ID               VARCHAR2(20)   
-     RNO     NOT NULL VARCHAR2(20)   
-     RDATE   NOT NULL VARCHAR2(100)  
-     RTIME   NOT NULL VARCHAR2(100)  
-     INWON            NUMBER         
-     MSG              VARCHAR2(1000) 
-     OK               CHAR(10)       
-     REGDATE          DATE        
-     
-     gg_locationfood_4
-     FNO         NOT NULL NUMBER         
-     POSTER               VARCHAR2(4000) 
-     NAME        NOT NULL VARCHAR2(200)  
-     SCORE       NOT NULL NUMBER(2,1)    
-     ADDR        NOT NULL VARCHAR2(300)  
-     TEL         NOT NULL VARCHAR2(30)   
-     TYPE        NOT NULL VARCHAR2(100)  
-     PRICE                VARCHAR2(100)  
-     PARKING              VARCHAR2(200)  
-     TIME                 VARCHAR2(200)  
-     MENU                 VARCHAR2(1000) 
-     JJIM                 NUMBER         
-     HIT                  NUMBER         
-     FLIKE                NUMBER         
-     GOOD                 NUMBER         
-     SOSO                 NUMBER         
-     BAD                  NUMBER         
-     RESERVE_DAY          VARCHAR2(100)  
-
-     */
+ 
     public List<ReserveVO> reserveMyPageData(String id)
     {
        List<ReserveVO> list=new ArrayList<ReserveVO>();

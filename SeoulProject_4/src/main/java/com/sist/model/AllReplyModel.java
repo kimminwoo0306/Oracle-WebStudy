@@ -51,15 +51,7 @@ public class AllReplyModel {
    @RequestMapping("all_reply/all_reply_update.do")
    public String all_reply_update(HttpServletRequest request,HttpServletResponse response)
    {
-	   // Java => 브라우저 => Java
-	   //    encoding   decoding
-	   /*
-	    *    byte[]  ==> 원상복귀 
-	    *    자바(%EC%9E%90%EB%B0%94) ==>  %EC%9E%90%EB%B0%94(자바)
-	    *    
-	    *    POST => GET (server.xml => windows 10) => 자동으로 처리 
-	    *    windows => linux (AWS) PaaS (운영체제) => 호스팅 
-	    */
+
 	   try
 	   {
 		   request.setCharacterEncoding("UTF-8"); 

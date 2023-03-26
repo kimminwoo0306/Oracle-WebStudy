@@ -115,13 +115,7 @@ public class AllReplyDAO {
 		  CreateConnection.disConnection(conn, ps);
 	  }
   }
-  /*
-   * "SELECT id,bno, title, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit,filesize, rownum as num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit, filesize "
-					+ "FROM gg_board_4 ORDER BY bno DESC)) "
-					+ "WHERE num BETWEEN ? AND ?";
-   */
+
   public List<AllReplyVO> ad_allReplyListData(int page)
   {
 
@@ -207,26 +201,7 @@ public class AllReplyDAO {
 	   }
 	   return total;
   }
-  /*
-   * RNO        NOT NULL NUMBER       
-	NAME       NOT NULL VARCHAR2(34) 
-	MSG        NOT NULL CLOB         
-	REGDATE             DATE         
-	MODDATE             DATE         
-	GROUP_ID   NOT NULL NUMBER       
-	GROUP_STEP          NUMBER       
-	GROUP_TAB           NUMBER       
-	ROOT                NUMBER       
-	DEPTH               NUMBER       
-	BNO                 NUMBER       
-	ID                  VARCHAR2(20) 
-	QNO                 NUMBER     
-	"SELECT id,bno, title, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit,filesize, rownum as num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit, filesize "
-					+ "FROM gg_board_4 ORDER BY bno DESC)) "
-					+ "WHERE num BETWEEN ? AND ?";
-   */
+ 
   public List<BoardReplyVO> ad_boardReplyListData(int page)
   {
 
@@ -314,5 +289,5 @@ public class AllReplyDAO {
 	   }
 	   return total;
   }
-  //ㄴㄴ
+
 }

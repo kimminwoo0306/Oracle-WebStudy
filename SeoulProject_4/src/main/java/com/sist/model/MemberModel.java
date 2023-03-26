@@ -108,10 +108,8 @@ public class MemberModel {
 	  MemberVO vo=dao.memberLogin(id, pwd);
 	  if(vo.getMsg().equals("OK"))// 로그인되었다면 
 	  {
-		  //session에 저장 => 모든 jsp로 사용이 가능하게 만든다 (전역변수) => 지속적인 유지 => ID,Name,admin...
 		  //session생성 
 		  HttpSession session=request.getSession();
-		  // session,cookie => request를 이용해서 생성한다 
 		  session.setAttribute("id", vo.getId());
 		  session.setAttribute("name", vo.getName());
 		  session.setAttribute("admin", vo.getAdmin());

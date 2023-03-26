@@ -42,7 +42,6 @@ public class FoodDAO {
 		return list;
 	}
 	
-	// ㅅ테스트 2
 	public ArrayList<FoodCategoryVO> mainpageFoodListData2()
 	{
 		ArrayList<FoodCategoryVO> list=new ArrayList<FoodCategoryVO>();
@@ -152,50 +151,7 @@ public class FoodDAO {
 		}
 		return totalpage;
 	}
-	// 목록
-//	public ArrayList<FoodVO> foodListData(int fcno)
-//	{
-//		
-//		ArrayList<FoodVO> list=new ArrayList<FoodVO>();
-//		try
-//		{
-//			conn=CreateConnection.getConnection();
-//			String sql="SELECT /*+ INDEX_DESC(gg_foodDetail_4 lf_no_pk_4)*/fno,name,addr,tel,type,poster,hit "
-//					  +"FROM gg_foodDetail_4 "
-//					  +"WHERE fcno=?";
-//			ps=conn.prepareStatement(sql);
-//			ps.setInt(1, fcno);
-//			ResultSet rs=ps.executeQuery();
-//			while(rs.next())
-//			{
-//				FoodVO vo=new FoodVO();
-//				vo.setFno(rs.getInt(1));
-//				vo.setName(rs.getString(2));
-//				String addr=rs.getString(3);
-//				addr=addr.substring(0,addr.lastIndexOf("지"));
-//				vo.setAddr(addr.trim());
-//				vo.setTel(rs.getString(4));
-//				vo.setType(rs.getString(5));
-//				String poster=rs.getString(6);
-//				poster=poster.substring(0,poster.indexOf("^"));
-//				vo.setPoster(poster);
-//				vo.setHit(rs.getInt(7));
-//				list.add(vo);
-//				
-//			}
-//			rs.close();
-//		}catch(Exception ex)
-//		{
-//			ex.printStackTrace();
-//		}
-//		finally
-//		{
-//			CreateConnection.disConnection(conn, ps);
-//		}
-//		return list;
-//	}
-	
-	// test 리스트 데이터 2
+
 	public ArrayList<FoodVO> foodListData2(int fcno)
 	{
 		
@@ -239,35 +195,7 @@ public class FoodDAO {
 		return list;
 	}
 	
-	// 카테고리 정보
-//	public FoodCategoryVO categoryInfoData(int fcno)
-//	{
-//		FoodCategoryVO vo=new FoodCategoryVO();
-//		try
-//		{
-//			conn=CreateConnection.getConnection();
-//			String sql="SELECT title,subtitle FROM gg_foodCategory_4 "
-//					  +"WHERE fcno=?";
-//			ps=conn.prepareStatement(sql);
-//			ps.setInt(1, fcno);
-//			ResultSet rs=ps.executeQuery();
-//			rs.next();
-//			vo.setTitle(rs.getString(1));
-//			vo.setSubtitle(rs.getString(2));
-//			rs.close();
-//		}catch(Exception ex)
-//		{
-//			ex.printStackTrace();
-//		}
-//		finally
-//		{
-//			CreateConnection.disConnection(conn, ps);
-//		}
-//		return vo;
-//	}
-	
-	
-	// test 2 카테고리 데이터
+
 	public FoodCategoryVO categoryInfoData2(int fcno)
 	{
 		FoodCategoryVO vo=new FoodCategoryVO();
@@ -294,57 +222,7 @@ public class FoodDAO {
 		return vo;
 	}
 	
-	// 맛집 상세보기 출력 
-//	public FoodVO foodDetail(int fno)
-//	{
-//		FoodVO vo=new FoodVO();
-//		try
-//		{
-//			conn=CreateConnection.getConnection();
-//			String sql="UPDATE gg_foodDetail_4 SET "
-//					  +"hit=hit+1 "
-//					  +"WHERE fno=?";
-//			ps=conn.prepareStatement(sql);
-//			ps.setInt(1, fno);
-//			ps.executeUpdate();
-//			
-//			sql="SELECT fno,name,tel,score,poster,addr,type,time,parking,menu,price,good,soso,bad,hit "
-//			   +"FROM gg_foodDetail_4 "
-//			   +"WHERE fno=?";
-//			ps=conn.prepareStatement(sql);
-//			ps.setInt(1, fno);
-//			ResultSet rs=ps.executeQuery();
-//			rs.next();
-//			vo.setFno(rs.getInt(1));
-//			vo.setName(rs.getString(2));
-//			vo.setTel(rs.getString(3));
-//			vo.setScore(rs.getDouble(4));
-//			vo.setPoster(rs.getString(5));
-//			vo.setAddr(rs.getString(6));
-//			vo.setType(rs.getString(7));
-//			vo.setTime(rs.getString(8));
-//			vo.setParking(rs.getString(9));
-//			vo.setMenu(rs.getString(10));
-//			vo.setPrice(rs.getString(11));
-//			vo.setGood(rs.getInt(12));
-//			vo.setSoso(rs.getInt(13));
-//			vo.setBad(rs.getInt(14));
-//			vo.setHit(rs.getInt(15));
-//			rs.close();
-//			
-//		}catch(Exception ex)
-//		{
-//			ex.printStackTrace();
-//		}
-//		finally
-//		{
-//			CreateConnection.disConnection(conn, ps);
-//		}
-//		return vo;
-//		
-//	}
-	
-	
+
 	// 검색용 디테일
 	
 	public FoodVO foodFindDetail(int fno)

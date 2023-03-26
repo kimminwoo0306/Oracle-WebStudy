@@ -52,32 +52,7 @@ public class GoodsAccountMain {
   
   public static void main(String[] args) {
 	GoodsAccountMain gm=new GoodsAccountMain();
-	
-	
-	  /*List<Integer> list=gm.foodNumberData(); int i=1; for(int fno:list) {
-	  gm.foodReserveDayInsert(fno, gm.reserve_day()); System.out.println("i="+i); }
-	  System.out.println("저장 완료");*/
-	 
-	/*for(int i=1;i<=6184;i++)
-	{
-		int rand=(int)(Math.random()*40)+10;
-		gm.goodsAccountInsert(i, rand);
-		try
-		{
-			Thread.sleep(30);
-		}catch(Exception ex) {}
-		System.out.println("i="+i);
-	}
-	System.out.println("수량 추가 종료!!");*/
-	//String s=gm.reserve_day();
-	//System.out.println(s);
-	//String s=gm.reserve_time();
-	//System.out.println(s);
-	/*for(int i=1;i<=31;i++)
-	{
-		gm.foodReserveTimeInsert(i, gm.reserve_time());
-	}
-	System.out.println("저장 완료");*/
+
 	
   }
   public void foodReserveTimeInsert(int rdate,String time)

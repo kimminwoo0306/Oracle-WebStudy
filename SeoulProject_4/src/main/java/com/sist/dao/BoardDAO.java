@@ -8,15 +8,13 @@ import oracle.jdbc.proxy.annotation.Pre;
 import java.sql.*;
 
 public class BoardDAO {
-	// 오라클 연결 객체
+
 	private Connection conn;
-	// 오라클 송수신 객체 (SQL => 데이터값 받기)
+
 	private PreparedStatement ps;
-	// MyBatis / JPA ==> xml에 등록
-	// 게시판 관련 (CURD)
-	// 웹프로그램의 비중 ==> 50%(DB) => 자바 (20%), HTML/CSS(20%), JavaScript(10%)
+
 	public ArrayList<BoardVO> boardListData(int page)
-	{ // 사용자가 데이터 전송 => 처리 (매개변수)
+	{ 
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		try
 		{
@@ -100,10 +98,7 @@ public class BoardDAO {
 		   }
 		   return list;
 	   }
-	// 총페이지 가지고 온다
-	// JSP(Model1) ==> MV패턴 ==> MVC패턴 (프로젝트 코드)
-	// M(Model) V(View) => 자바 / HTML
-	// C ==> 자바/HTML => 연결
+
 	public int boardTotalPage() {
 		int total = 0;
 		try {
@@ -122,8 +117,7 @@ public class BoardDAO {
 		
 		return total;
 	}
-	// 목록 : 페이징 (인라인 뷰), 출력 순서, 블록별 (◀ [1][2][3]...▶)
-	// 상세보기 : rownum (이전 / 다음)
+
 	public BoardVO boardDetailData(int bno) {
 		BoardVO vo = new BoardVO();
 		try {
@@ -131,7 +125,7 @@ public class BoardDAO {
 			String sql = "UPDATE gg_board_4 SET "
 					+ "hit= hit+1 "
 					+ "WHERE bno=?";
-			// => 기능 수행 => 한개의 기능에 여러개의 SQL문장을 실행 할 수 있다
+
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, bno);
 			ps.executeUpdate();
@@ -144,7 +138,6 @@ public class BoardDAO {
 			ps.setInt(1, bno);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			// 데이터값을 받아서 저장 => JSP에서 읽기
 			vo.setBno(rs.getInt(1));
 			vo.setName(rs.getString(2));
 			vo.setTitle(rs.getString(3));
@@ -177,7 +170,7 @@ public class BoardDAO {
 			ps.setString(4, vo.getFilename());
 			ps.setInt(5, vo.getFilesize());
 			ps.setString(6, vo.getId());
-			ps.executeUpdate(); // COMMIT 포함 => INSERT, UPDATE, DELETE
+			ps.executeUpdate(); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -186,7 +179,6 @@ public class BoardDAO {
 		}
 	}
 	// 수정 데이터 읽기
-	// 1. Ajax, VueJS, ReactJS, Timeleaf
 	public BoardVO boardUpdateData(int bno) {
 		BoardVO vo = new BoardVO();
 		try {
@@ -212,14 +204,11 @@ public class BoardDAO {
 		return vo;
 	}
 	// 수정  => pwd일치여부 => javaScript
-	public boolean boardUpdate(BoardVO vo) { // 수정할 데이터 여러개 => VO, 한개, 두개, 일반변수
-		// boolean => 비밀번호가 맞는 경우 / 틀린경우 => 경우의수가 여러개면 int, String, 두개명 : boolean
-		// 수정 => 비밀번호(O) => 수정하고 상세보기로 이동, 비밀번호(X) => 수정없이 이전화면으로 이동
+	public boolean boardUpdate(BoardVO vo) { 
 		boolean bCheck = false;
 		try {
 			// 1. 연결
 			conn=CreateConnection.getConnection();
-			// 2. SQL => 두번 수행
 			// 2-1 => 비밀번호 확인
 			String sql = "SELECT pwd FROM gg_board_4 "
 					+ "WHERE bno=?";
@@ -229,8 +218,7 @@ public class BoardDAO {
 			rs.next();
 			String db_pwd = rs.getString(1);
 			rs.close();
-			
-			// 비밀번호를 체크
+			//비번체크
 			if(db_pwd.equals(vo.getPwd())) {
 				bCheck = true;
 				// 실제 수정
@@ -243,7 +231,6 @@ public class BoardDAO {
 				ps.setString(2, vo.getContent());
 				ps.setInt(3, vo.getBno());
 				
-				// 실행 명령
 				ps.executeUpdate();
 			}
 		} catch (Exception e) {
@@ -311,7 +298,7 @@ public class BoardDAO {
 		}
 		return bCheck;
 	}
-	// 찾기  => <select> <checkbox> ==> 파일안에서 처리
+	// 찾기
 	// 댓글
 	public void replyInsert(BoardReplyVO vo)
 	   {
@@ -418,7 +405,7 @@ public class BoardDAO {
 			   ps.setInt(1, gi);
 			   ps.setInt(2, gs);
 			   ps.executeUpdate();
-			   // 3. INSERT commit() ========> rollback은 수행하지 않는다
+			   // 3. INSERT commit() 
 			   sql="INSERT INTO gg_reply_4(rno,bno,id,name,msg,group_id,group_step,group_tab,root) "
 			 	  +"VALUES(gr_rno_seq_4.nextval,?,?,?,?,?,?,?,?)";
 			   ps=conn.prepareStatement(sql);
@@ -543,9 +530,7 @@ public class BoardDAO {
 		CreateConnection.disConnection(conn, ps);
 		}
 		}
-		public void ad_boardUpdate(BoardVO vo) { // 수정할 데이터 여러개 => VO, 한개, 두개, 일반변수
-		// boolean => 비밀번호가 맞는 경우 / 틀린경우 => 경우의수가 여러개면 int, String, 두개명 : boolean
-		// 수정 => 비밀번호(O) => 수정하고 상세보기로 이동, 비밀번호(X) => 수정없이 이전화면으로 이동
+		public void ad_boardUpdate(BoardVO vo) { 
 		
 		try {
 		// 1. 연결
@@ -590,7 +575,7 @@ public class BoardDAO {
 		
 		}
 		public ArrayList<BoardVO> my_boardListData(String id)
-		{ // 사용자가 데이터 전송 => 처리 (매개변수)
+		{ 
 			ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 			try
 			{
@@ -634,7 +619,6 @@ public class BoardDAO {
 				String sql = "UPDATE gg_board_4 SET "
 						+ "hit= hit+1 "
 						+ "WHERE bno=?";
-				// => 기능 수행 => 한개의 기능에 여러개의 SQL문장을 실행 할 수 있다
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, bno);
 				ps.executeUpdate();
@@ -647,7 +631,6 @@ public class BoardDAO {
 				ps.setInt(1, bno);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				// 데이터값을 받아서 저장 => JSP에서 읽기
 				vo.setBno(rs.getInt(1));
 				vo.setName(rs.getString(2));
 				vo.setTitle(rs.getString(3));
@@ -665,9 +648,7 @@ public class BoardDAO {
 			}
 			return vo;
 		}
-		public void my_boardUpdate(BoardVO vo) { // 수정할 데이터 여러개 => VO, 한개, 두개, 일반변수
-			// boolean => 비밀번호가 맞는 경우 / 틀린경우 => 경우의수가 여러개면 int, String, 두개명 : boolean
-			// 수정 => 비밀번호(O) => 수정하고 상세보기로 이동, 비밀번호(X) => 수정없이 이전화면으로 이동
+		public void my_boardUpdate(BoardVO vo) { 
 			
 			try {
 				// 1. 연결
@@ -675,7 +656,7 @@ public class BoardDAO {
 				// 2. SQL => 두번 수행
 				// 2-1 => 비밀번호 확인
 				String sql = "UPDATE gg_board_4 SET "
-						+ "title=?, content=?, moddate=SYSDATE " //regdate=SYSDATE 수정날짜 
+						+ "title=?, content=?, moddate=SYSDATE " 
 						+ "WHERE bno=?";
 					ps = conn.prepareStatement(sql);
 					ps.setString(1, vo.getName());

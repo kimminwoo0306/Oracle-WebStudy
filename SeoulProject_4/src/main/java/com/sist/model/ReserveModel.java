@@ -111,10 +111,8 @@ public class ReserveModel {
   {
      String day = request.getParameter("day");
      List<String> reserve_time = new ArrayList<String>();
-     // DAO 연결
      ReserveDAO dao = new ReserveDAO();
      String dd=dao.reserveTimeData(Integer.parseInt(day));
-     // 1,2,3
      StringTokenizer st = new StringTokenizer(dd,",");
      while(st.hasMoreTokens())
      {
@@ -130,26 +128,10 @@ public class ReserveModel {
     {
        return "../reserve/reserve_inwon.jsp";
     }
-   ///////////////////////////////////////////////////////////////////////////////////////
     @RequestMapping("reserve/reserve_ok.do")
     public String reserve_ok(HttpServletRequest request,HttpServletResponse response)
     {
-  	  /*
-  	   *         <input type=hidden name="fno" id="fno">
-                   <input type=hidden name="reserveday" id="reserveday">
-                   <input type=hidden name="reservetime" id="reservetime">
-                   <input type=hidden name="reserveinwon" id="reserveinwon">
-                   
-                  RNO        NOT NULL NUMBER       
-  				FNO                 NUMBER  O    
-  				ID                  VARCHAR2(20)  O
-  				RDATE      NOT NULL VARCHAR2(20)  O
-  				RTIME      NOT NULL VARCHAR2(20)  O
-  				INWON               NUMBER       
-  				RESERVE_NO NOT NULL VARCHAR2(20)  O
-  				OK                  CHAR(1)       'n'  
-  				REGDATE             DATE     SYSDATE
-  	   */ 
+ 
   	  try
   	  {
   		  request.setCharacterEncoding("UTF-8");

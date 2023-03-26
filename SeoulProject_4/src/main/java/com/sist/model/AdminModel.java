@@ -234,10 +234,8 @@ public class AdminModel {
   @RequestMapping("adminpage/board_detail.do")
 	public String ad_board_detail(HttpServletRequest request, HttpServletResponse response)
 	{
-		// 출력에 필요한 데이터 전송
-		// 사용자 요청한 데이터를 받아서 처리 => 게시물 번호
-		String bno=request.getParameter("bno"); // 상세보기 => 1개만 출력한다. => primary key
-		// DAO로 전송 => 오라클에서 데이터 읽기
+
+		String bno=request.getParameter("bno"); 
 		BoardDAO dao=new BoardDAO();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
@@ -260,7 +258,6 @@ public class AdminModel {
 		return "../main/main.jsp";
   }
   @RequestMapping("adminpage/board_insert_ok.do")
-  // (NoticeVO vo)
   public String admin_board_insert_ok(HttpServletRequest request,HttpServletResponse response)
   {
 	  try {
@@ -269,7 +266,6 @@ public class AdminModel {
 			int size=1024*1024*100; // 업로드된 파일의 최대 크기 : 100MB
 			String enctype="UTF-8"; // 한글 파일명
 			MultipartRequest mr=new MultipartRequest(request,path,size,enctype,new DefaultFileRenamePolicy());
-			// 사용자가 보내준 데이터를 받는다
 			HttpSession session=request.getSession();
 			String id=(String)session.getAttribute("id");
 	//		String id=mr.getParameter("id");
@@ -277,7 +273,6 @@ public class AdminModel {
 			String title=mr.getParameter("title");
 			String content=mr.getParameter("content");
 			String filename=mr.getFilesystemName("upload");			
-			// BoardVO에 묶어서 오라클 전송
 			BoardVO vo=new BoardVO();
 			vo.setId(id);
 			vo.setName(name);
@@ -297,13 +292,11 @@ public class AdminModel {
 			BoardDAO dao=new BoardDAO();
 			dao.ad_boardInsert(vo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 화면 이동
 		return "redirect:board_list.do";
   }
-  //adminpage/update.do
   @RequestMapping("adminpage/update.do")
 	public String board_update(HttpServletRequest request, HttpServletResponse response)
 	   {
@@ -343,12 +336,10 @@ public class AdminModel {
 
 		   return "redirect:board_list.do";
 	   }
-	//adminpage/board_delete.do
 	@RequestMapping("adminpage/board_delete.do")
 	  public String admin_board_delete(HttpServletRequest request,HttpServletResponse response)
 	  {
 		  String no=request.getParameter("no");
-		  //DAO연동 
 		  BoardDAO dao=new BoardDAO();
 		  dao.ad_boardDelete(Integer.parseInt(no));
 		  return "redirect:board_list.do";
@@ -392,7 +383,6 @@ public class AdminModel {
 		   request.setAttribute("main_jsp", "../adminpage/admin_main.jsp");
 		   return "../main/main.jsp";
 	   }
-/////////////////////////////////////////////////////////////////////////////////////////
 	String[] url={"","../trip/trip_detail.do?tno=","../food/food_detail.do?fno="};
 	@RequestMapping("adminpage/ad_all_reply_list.do")
 	   public String all_reply_list(HttpServletRequest request,HttpServletResponse response)

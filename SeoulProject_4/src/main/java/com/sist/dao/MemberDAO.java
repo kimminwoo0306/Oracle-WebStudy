@@ -8,23 +8,6 @@ import java.sql.*;
 public class MemberDAO {
    private Connection conn;
    private PreparedStatement ps;
-   
-   // 1. 회원 가입 
-   /*
-    *   ID       NOT NULL VARCHAR2(20)  
-		PWD      NOT NULL VARCHAR2(10)  
-		NAME     NOT NULL VARCHAR2(34)  
-		SEX               VARCHAR2(6)   
-		BIRTHDAY NOT NULL VARCHAR2(15)  
-		EMAIL             VARCHAR2(50)  
-		POST     NOT NULL VARCHAR2(7)   
-		ADDR1    NOT NULL VARCHAR2(200) 
-		ADDR2             VARCHAR2(200) 
-		PHONE    NOT NULL VARCHAR2(20)  
-		CONTENT           CLOB          
-		ADMIN             CHAR(1)       
-		RGDATE            DATE 
-    */
    //1. ID중복체크 
    public int memberIdCheck(String id)
    {
@@ -268,20 +251,7 @@ public class MemberDAO {
 	   }
 	   return pwd;
    }
-   ///////////////////////////////////////////////////////mypage
-   /*
-    * ID    NOT NULL VARCHAR2(20) 
-	PWD   NOT NULL VARCHAR2(20) 
-	NAME  NOT NULL VARCHAR2(34) 
-	SEX            VARCHAR2(6)  
-	NICK  NOT NULL VARCHAR2(20) 
-	BIRTH NOT NULL VARCHAR2(20) 
-	EMAIL          VARCHAR2(50) 
-	PHONE NOT NULL VARCHAR2(20) 
-	TOS   NOT NULL CLOB         
-	ADMIN          CHAR(1)      
-	COUNT          NUMBER 
-    */
+ 
    public MemberVO member_info(String id) {
 	   MemberVO vo=new MemberVO();
 	   try {
@@ -445,14 +415,7 @@ public class MemberDAO {
 	   }
 	   return bCheck;
    }
-   ///////////////////////////////////////////////////////
-   /*
-    * "SELECT id,bno, title, name, TO_CHAR(regdate, 'YYYY-MM-DD'), hit,filesize, num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit,filesize, rownum as num "
-					+ "FROM (SELECT id,bno, title, name, regdate, hit, filesize "
-					+ "FROM gg_board_4 ORDER BY bno DESC)) "
-					+ "WHERE num BETWEEN ? AND ?";
-    */
+
    public List<MemberVO> ad_allMemberList(int page){
 	   List<MemberVO> list=new ArrayList<MemberVO>();
 	   try {
